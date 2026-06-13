@@ -19,7 +19,6 @@ export function ReceivePage() {
     progress,
     receivedFiles,
     initializeAsReceiver,
-    disconnect,
     reset,
     error
   } = useWebRTCStore();
@@ -124,7 +123,7 @@ export function ReceivePage() {
             <h1 className="receive-title text-danger">Connection <span className="text-gradient">Failed</span></h1>
             <p className="receive-subtitle">{error || 'An unexpected error occurred.'}</p>
           </div>
-          <GlassCard variant="danger" padding="xl" className="receive-card">
+          <GlassCard variant="default" padding="xl" className="receive-card">
             <div className="receive-content">
               <Button variant="primary" size="lg" onClick={() => {
                 setHasInitialized(false);

@@ -49,6 +49,7 @@ let webrtcManager: WebRTCManager | null = null;
 let beforeUnloadHandler: (() => void) | null = null;
 
 export const useWebRTCStore = create<WebRTCState>((set, get) => ({
+  sessionId: null,
   encryptionKey: null,
   shareUrl: null,
   connectionState: 'idle',

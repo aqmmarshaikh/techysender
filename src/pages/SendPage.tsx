@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Send, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, AlertCircle } from 'lucide-react';
 import { useTransferStore } from '../store/transferStore';
 import { useWebRTCStore } from '../store/webrtcStore';
 import { Button } from '../components/ui/Button';
@@ -22,7 +22,6 @@ export function SendPage() {
     error,
     initializeAsSender,
     sendFiles,
-    disconnect,
     reset
   } = useWebRTCStore();
 

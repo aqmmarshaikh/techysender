@@ -20,10 +20,6 @@ const faqs = [
     answer: 'The maximum total transfer size is 200 MB. You can send multiple files and folders as long as the total size stays under this limit.',
   },
   {
-    question: 'What\'s the difference between Direct and Relay mode?',
-    answer: 'Direct mode uses WebRTC to send files directly between browsers — both users need to be online simultaneously. Relay mode stores encrypted files temporarily so the receiver can download later.',
-  },
-  {
     question: 'Do I need to create an account?',
     answer: 'No. BYTEPORT requires no registration, no email, and no personal information. You can start transferring files immediately.',
   },

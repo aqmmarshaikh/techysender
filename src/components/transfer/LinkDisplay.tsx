@@ -1,19 +1,13 @@
 import { useState, useEffect } from 'react';
-import { CheckCircle, Copy, Check, Link2, Loader2 } from 'lucide-react';
-import { useTransferStore } from '../../store/transferStore';
+import { Copy, Check, Link2, Loader2 } from 'lucide-react';
 import { useWebRTCStore } from '../../store/webrtcStore';
 import { QRCodePanel } from '../sharing/QRCodePanel';
 import { ShareButtons } from '../sharing/ShareButtons';
 import { Button } from '../ui/Button';
 import { copyToClipboard } from '../../lib/linkGenerator';
-import { formatFileSize } from '../../types/file';
 import './LinkDisplay.css';
 
 export function LinkDisplay() {
-  const files = useTransferStore(s => s.files);
-  const totalSize = useTransferStore(s => s.totalSize());
-  const clearFiles = useTransferStore(s => s.clearFiles);
-
   const shareUrl = useWebRTCStore(s => s.shareUrl);
   const resetWebRTC = useWebRTCStore(s => s.reset);
   

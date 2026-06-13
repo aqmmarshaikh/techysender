@@ -48,6 +48,7 @@ export class WebRTCManager {
   
   private pendingIceCandidates: RTCIceCandidateInit[] = [];
   private disconnectTimeout: ReturnType<typeof setTimeout> | null = null;
+  private isDisconnecting = false;
 
   // Transfer state
   private transferState = {
@@ -70,6 +71,10 @@ export class WebRTCManager {
     this.callbacks = callbacks;
   }
 
+  private get isTransferComplete() {
+    return this.transferState.totalBytes > 0 && this.transferState.transferredBytes >= this.transferState.totalBytes;
+  }
+
   public async initialize() {
     console.log(`[WebRTC] Initializing as ${this.role} for session ${this.sessionId}`);
     this.pc = new RTCPeerConnection(ICE_SERVERS);
@@ -77,20 +82,34 @@ export class WebRTCManager {
     // ── Setup ICE Candidate Gathering ──
     this.pc.onicecandidate = (event) => {
       if (event.candidate) {
-        console.log(`[WebRTC] Local ICE candidate gathered`, event.candidate.candidate);
+        console.log(`[WebRTC] Local ICE candidate generated: ${event.candidate.candidate}`);
         addIceCandidate(
           this.sessionId,
           this.role === 'sender' ? 'caller' : 'callee',
           event.candidate.toJSON()
         );
+      } else {
+        console.log(`[WebRTC] Local ICE gathering COMPLETE (null candidate).`);
       }
+    };
+
+    this.pc.onicegatheringstatechange = () => {
+      if (!this.pc) return;
+      console.log(`[WebRTC] ICE Gathering State changed: ${this.pc.iceGatheringState}`);
     };
 
     // ── Setup Connection State Monitoring ──
     this.pc.onconnectionstatechange = () => {
       if (!this.pc) return;
-      console.log(`[WebRTC] PeerConnection state changed: ${this.pc.connectionState}`);
+      console.log(`[WebRTC] PeerConnection onconnectionstatechange: ${this.pc.connectionState} (isDisconnecting: ${this.isDisconnecting}, isTransferComplete: ${this.isTransferComplete})`);
       
+      if (this.isDisconnecting) return;
+
+      if (this.isTransferComplete && (this.pc.connectionState === 'disconnected' || this.pc.connectionState === 'failed' || this.pc.connectionState === 'closed')) {
+        console.log(`[WebRTC] Ignoring PeerConnection state ${this.pc.connectionState} because transfer is already complete.`);
+        return;
+      }
+
       if (this.pc.connectionState === 'connected') {
         if (this.disconnectTimeout) {
           clearTimeout(this.disconnectTimeout);
@@ -106,7 +125,9 @@ export class WebRTCManager {
         if (!this.disconnectTimeout) {
           this.disconnectTimeout = setTimeout(() => {
             console.error(`[WebRTC] Recovery timeout expired. Failing connection.`);
-            this.callbacks.onStatusChange('failed');
+            if (!this.isDisconnecting && !this.isTransferComplete) {
+              this.callbacks.onStatusChange('failed');
+            }
             this.disconnectTimeout = null;
           }, 5000);
         }
@@ -166,10 +187,12 @@ export class WebRTCManager {
 
       // Listen for Receiver's ICE Candidates
       const unsubIce = subscribeToIceCandidates(this.sessionId, 'callee', async (candidate) => {
+        console.log(`[WebRTC] Remote ICE candidate received from receiver: ${candidate.candidate}`);
         if (this.pc && this.pc.remoteDescription) {
+          console.log(`[WebRTC] Sender: Adding remote ICE candidate immediately`);
           await this.pc.addIceCandidate(new RTCIceCandidate(candidate));
         } else {
-          console.log(`[WebRTC] Sender: Buffering ICE candidate`);
+          console.log(`[WebRTC] Sender: Buffering remote ICE candidate (remoteDescription not set)`);
           this.pendingIceCandidates.push(candidate);
         }
       });
@@ -209,10 +232,12 @@ export class WebRTCManager {
 
       // Listen for Sender's ICE Candidates
       const unsubIce = subscribeToIceCandidates(this.sessionId, 'caller', async (candidate) => {
+        console.log(`[WebRTC] Remote ICE candidate received from sender: ${candidate.candidate}`);
         if (this.pc && this.pc.remoteDescription) {
+          console.log(`[WebRTC] Receiver: Adding remote ICE candidate immediately`);
           await this.pc.addIceCandidate(new RTCIceCandidate(candidate));
         } else {
-          console.log(`[WebRTC] Receiver: Buffering ICE candidate`);
+          console.log(`[WebRTC] Receiver: Buffering remote ICE candidate (remoteDescription not set)`);
           this.pendingIceCandidates.push(candidate);
         }
       });
@@ -238,17 +263,25 @@ export class WebRTCManager {
     channel.binaryType = 'arraybuffer';
 
     channel.onopen = () => {
-      console.log(`[WebRTC] DataChannel state: OPEN (readyState: ${channel.readyState})`);
+      console.log(`[WebRTC] EXPLICIT LOG: DataChannel reached OPEN state! (readyState: ${channel.readyState})`);
       this.callbacks.onStatusChange('channel-open');
     };
 
     channel.onclose = () => {
-      console.log(`[WebRTC] DataChannel state: CLOSED (readyState: ${channel.readyState})`);
-      this.callbacks.onStatusChange('channel-closed');
+      console.log(`[WebRTC] DataChannel onclose fired. ReadyState: ${channel.readyState}`);
+      if (this.isDisconnecting || this.isTransferComplete) {
+        console.log(`[WebRTC] Ignoring channel-closed as connection is completing or disconnecting.`);
+      } else {
+        this.callbacks.onStatusChange('channel-closed');
+      }
     };
 
     channel.onerror = (error) => {
-      console.error(`[WebRTC] DataChannel error. ReadyState: ${channel.readyState}`, error);
+      console.error(`[WebRTC] DataChannel onerror fired. ReadyState: ${channel.readyState}`, error);
+      if (this.isDisconnecting || this.isTransferComplete) {
+        console.log(`[WebRTC] Ignoring channel error because transfer is complete or already disconnecting.`);
+        return;
+      }
       this.callbacks.onError('Data channel error: ' + error);
     };
 
@@ -427,17 +460,44 @@ export class WebRTCManager {
   // ── Cleanup ──
 
   public disconnect() {
+    if (this.isDisconnecting) {
+      console.log(`[WebRTC] Disconnect called, but already disconnecting. Ignoring duplicate call.`);
+      return;
+    }
+    console.log(`[WebRTC] Gracefully disconnecting PeerConnection and DataChannel...`);
+    this.isDisconnecting = true;
+
     if (this.disconnectTimeout) {
       clearTimeout(this.disconnectTimeout);
       this.disconnectTimeout = null;
     }
+
+    // Unsubscribe from signaling
     this.unsubscribes.forEach(u => u());
     this.unsubscribes = [];
+
+    // Gracefully close DataChannel
     if (this.dataChannel) {
-      this.dataChannel.close();
+      try {
+        if (this.dataChannel.readyState !== 'closed') {
+          console.log(`[WebRTC] Closing DataChannel`);
+          this.dataChannel.close();
+        }
+      } catch (e) {
+        console.error(`[WebRTC] Error closing DataChannel`, e);
+      }
     }
+
+    // Gracefully close PeerConnection
     if (this.pc) {
-      this.pc.close();
+      try {
+        if (this.pc.signalingState !== 'closed') {
+          console.log(`[WebRTC] Closing PeerConnection`);
+          this.pc.close();
+        }
+      } catch (e) {
+        console.error(`[WebRTC] Error closing PeerConnection`, e);
+      }
     }
   }
 }

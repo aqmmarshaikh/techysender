@@ -32,7 +32,7 @@ export function PrivacyPage() {
           <GlassCard variant="default" padding="lg">
             <div className="privacy-card-icon"><Server size={22} /></div>
             <h3>What We Store</h3>
-            <p>In relay mode, encrypted file data is stored temporarily for up to 24 hours. In direct mode, no file data touches our servers at all — transfers happen peer-to-peer.</p>
+            <p>Absolutely nothing. No file data touches our servers at all — transfers happen peer-to-peer using direct WebRTC connections.</p>
           </GlassCard>
 
           <GlassCard variant="purple" padding="lg">

@@ -1,4 +1,3 @@
-export type TransferMode = 'direct' | 'relay';
 
 export type TransferStatus =
   | 'CREATED'
@@ -25,7 +24,6 @@ export interface TransferFile {
 
 export interface Transfer {
   transferId: string;
-  mode: TransferMode;
   status: TransferStatus;
   files: TransferFile[];
   totalSize: number;
@@ -42,19 +40,6 @@ export interface Transfer {
   estimatedTimeRemaining: number;
 }
 
-export interface TransferSettings {
-  mode: TransferMode;
-  expirationHours: number;
-  encryptionEnabled: boolean;
-  analyticsEnabled: boolean;
-}
-
-export const DEFAULT_SETTINGS: TransferSettings = {
-  mode: 'relay',
-  expirationHours: 24,
-  encryptionEnabled: true,
-  analyticsEnabled: true,
-};
 
 export const MAX_TRANSFER_SIZE = 200 * 1024 * 1024; // 200 MB
 export const CHUNK_SIZE = 256 * 1024; // 256 KB

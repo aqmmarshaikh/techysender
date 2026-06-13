@@ -1,4 +1,4 @@
-import { Wifi, Shield, ArrowRight } from 'lucide-react';
+import { Wifi, ArrowRight } from 'lucide-react';
 import { GlassCard } from '../ui/GlassCard';
 import { StatusBadge } from '../ui/StatusBadge';
 import './TransferOptions.css';
