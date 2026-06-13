@@ -1,0 +1,127 @@
+/* ============================================
+   BYTEPORT — Link Display Component
+   ============================================ */
+
+.link-display {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-8);
+  border-radius: var(--radius-2xl);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  box-shadow:
+    var(--glass-shadow),
+    0 0 60px rgba(16, 185, 129, 0.05);
+}
+
+/* ── Header ── */
+.link-display-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.link-display-success-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-success-dim);
+  color: var(--color-success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInScale var(--duration-slow) var(--ease-spring);
+}
+
+.link-display-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  background: linear-gradient(135deg, var(--color-success), var(--color-accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.link-display-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+}
+
+/* ── URL Box ── */
+.link-display-url-box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border);
+}
+
+.link-display-url-icon {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.link-display-url-input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-accent-cyan);
+  background: none;
+  border: none;
+  outline: none;
+  cursor: text;
+}
+
+.link-display-url-input::selection {
+  background: var(--color-accent-cyan-dim);
+}
+
+/* ── Security Notice ── */
+.link-display-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.link-display-security-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-success);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ── New Transfer ── */
+.link-display-new {
+  padding-top: var(--space-2);
+}
+
+@media (max-width: 640px) {
+  .link-display {
+    padding: var(--space-6);
+  }
+
+  .link-display-url-box {
+    flex-wrap: wrap;
+  }
+
+  .link-display-url-input {
+    font-size: var(--text-xs);
+  }
+}

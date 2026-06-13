@@ -1,0 +1,164 @@
+/* ============================================
+   BYTEPORT — Upload Zone Component
+   ============================================ */
+
+.upload-zone {
+  position: relative;
+  border: 2px dashed rgba(0, 229, 255, 0.2);
+  border-radius: var(--radius-2xl);
+  background: rgba(0, 229, 255, 0.02);
+  padding: var(--space-12) var(--space-8);
+  cursor: pointer;
+  transition:
+    border-color var(--duration-normal) var(--ease-out),
+    background var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+  overflow: hidden;
+}
+
+.upload-zone:hover {
+  border-color: rgba(0, 229, 255, 0.35);
+  background: rgba(0, 229, 255, 0.04);
+  box-shadow: 0 0 40px rgba(0, 229, 255, 0.05);
+}
+
+.upload-zone:focus-visible {
+  outline: 2px solid var(--color-accent-cyan);
+  outline-offset: 2px;
+}
+
+/* ── Dragging State ── */
+.upload-zone-dragging {
+  border-color: var(--color-accent-cyan);
+  background: rgba(0, 229, 255, 0.08);
+  box-shadow:
+    0 0 60px rgba(0, 229, 255, 0.1),
+    inset 0 0 40px rgba(0, 229, 255, 0.03);
+}
+
+.upload-zone-dragging .upload-zone-body {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ── Overlay ── */
+.upload-zone-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  color: var(--color-accent-cyan);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  z-index: 10;
+  animation: fadeIn var(--duration-fast) var(--ease-out);
+}
+
+.upload-zone-overlay svg {
+  animation: float 2s ease-in-out infinite;
+}
+
+/* ── Hidden Input ── */
+.upload-zone-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* ── Body ── */
+.upload-zone-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+  transition: opacity var(--duration-fast);
+}
+
+/* ── Icon ── */
+.upload-zone-icon-wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.upload-zone-icon-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 229, 255, 0.15);
+  animation: pulseRing 3s ease-out infinite;
+}
+
+.upload-zone-icon-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-accent-cyan-dim);
+  color: var(--color-accent-cyan);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+/* ── Text ── */
+.upload-zone-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.upload-zone-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Buttons ── */
+.upload-zone-buttons {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* ── Meta ── */
+.upload-zone-meta {
+  margin-top: var(--space-2);
+}
+
+.upload-zone-info {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.upload-zone-warning {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-error);
+  font-weight: var(--weight-medium);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .upload-zone {
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .upload-zone-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .upload-zone-buttons .btn {
+    width: 100%;
+  }
+}

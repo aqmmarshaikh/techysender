@@ -1,0 +1,83 @@
+/* ============================================
+   BYTEPORT — Expiration Timer
+   ============================================ */
+
+.expiration-timer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  background: rgba(0, 229, 255, 0.05);
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+.expiration-timer svg {
+  color: var(--color-accent-cyan);
+  flex-shrink: 0;
+}
+
+.expiration-label {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.expiration-digits {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  font-family: var(--font-mono);
+}
+
+.expiration-unit {
+  display: flex;
+  align-items: baseline;
+}
+
+.expiration-value {
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-accent-cyan);
+  min-width: 1.6ch;
+  text-align: right;
+}
+
+.expiration-suffix {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-left: 1px;
+}
+
+.expiration-colon {
+  color: var(--color-text-muted);
+  margin-inline: 1px;
+  font-weight: var(--weight-bold);
+}
+
+/* ── Urgent state ── */
+.expiration-urgent {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.expiration-urgent svg {
+  color: var(--color-error);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.expiration-urgent .expiration-value {
+  color: var(--color-error);
+}
+
+/* ── Expired ── */
+.expiration-expired {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: var(--color-error);
+}
+
+.expiration-expired svg {
+  color: var(--color-error);
+}

@@ -1,0 +1,100 @@
+/* ============================================
+   BYTEPORT — ProgressBar Component
+   ============================================ */
+
+.progress-wrapper {
+  width: 100%;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.progress-label-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.progress-label-value {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* ── Track ── */
+.progress-track {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-sm { height: 4px; }
+.progress-md { height: 8px; }
+.progress-lg { height: 12px; }
+
+/* ── Fill ── */
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  position: relative;
+  overflow: hidden;
+  min-width: 2px;
+}
+
+.progress-animated {
+  transition: width var(--duration-slow) var(--ease-out);
+}
+
+/* ── Variants ── */
+.progress-gradient {
+  background: var(--color-accent-gradient);
+}
+
+.progress-cyan {
+  background: var(--color-accent-cyan);
+  box-shadow: 0 0 12px var(--color-accent-cyan-glow);
+}
+
+.progress-purple {
+  background: var(--color-accent-purple);
+  box-shadow: 0 0 12px var(--color-accent-purple-glow);
+}
+
+.progress-success {
+  background: var(--color-success);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.progress-warning {
+  background: var(--color-warning);
+}
+
+.progress-error {
+  background: var(--color-error);
+}
+
+/* ── Shine effect ── */
+.progress-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s ease-in-out infinite;
+  background-size: 200% 100%;
+}
+
+/* ── Indeterminate ── */
+.progress-indeterminate {
+  width: 40% !important;
+  animation: progressIndeterminate 1.5s ease-in-out infinite;
+}

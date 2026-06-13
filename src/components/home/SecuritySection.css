@@ -1,0 +1,117 @@
+/* ============================================
+   BYTEPORT — Security Section
+   ============================================ */
+
+.security-header {
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+.security-header .section-subtitle {
+  margin-inline: auto;
+}
+
+.security-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+/* ── Visualization ── */
+.security-visual-card {
+  padding: var(--space-8);
+  position: relative;
+  overflow: hidden;
+}
+
+.security-code {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.security-code-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.security-code-key {
+  color: var(--color-accent-cyan);
+}
+
+.security-code-sep {
+  color: var(--color-text-muted);
+}
+
+.security-code-val {
+  color: var(--color-success);
+}
+
+.security-code-false {
+  color: var(--color-error);
+}
+
+.security-visual-glow {
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(0, 229, 255, 0.06);
+  filter: blur(60px);
+}
+
+/* ── Features ── */
+.security-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.security-feature {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.security-feature-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  background: var(--color-accent-cyan-dim);
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  color: var(--color-accent-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.security-feature-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.security-feature-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.security-feature-description {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+@media (max-width: 768px) {
+  .security-content {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,47 @@
+/* ============================================
+   BYTEPORT — File List Component
+   ============================================ */
+
+.file-list {
+  margin-top: var(--space-6);
+}
+
+.file-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+  padding-inline: var(--space-1);
+}
+
+.file-list-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.file-list-count {
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+}
+
+.file-list-dot {
+  color: var(--color-text-muted);
+}
+
+.file-list-size {
+  color: var(--color-text-secondary);
+}
+
+.file-list-size-error {
+  color: var(--color-error);
+  font-weight: var(--weight-semibold);
+}
+
+.file-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}

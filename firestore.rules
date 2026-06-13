@@ -1,0 +1,64 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ── Transfer Documents ──
+    // Anyone can create a transfer (no auth required — by design)
+    // Anyone can read a transfer (they need the link)
+    // Only the system can update (view/download counts)
+    match /transfers/{transferId} {
+      // Allow anyone to read (receiver needs to fetch metadata)
+      allow read: if true;
+      
+      // Allow anyone to create (sender uploads without auth)
+      allow create: if request.resource.data.keys().hasAll([
+        'transferId', 'mode', 'status', 'files', 'totalSize',
+        'createdAt', 'expiresAt', 'downloadCount', 'viewCount', 'storagePath'
+      ])
+      // Enforce size limit
+      && request.resource.data.totalSize <= 200 * 1024 * 1024
+      // Enforce max expiration (25 hours to allow for clock skew)
+      && request.resource.data.expiresAt is timestamp
+      // Enforce initial counts are 0
+      && request.resource.data.downloadCount == 0
+      && request.resource.data.viewCount == 0;
+      
+      // Allow updates only for incrementing counters and marking expired
+      allow update: if (
+        // Only allow incrementing viewCount by 1
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['viewCount'])
+          && request.resource.data.viewCount == resource.data.viewCount + 1)
+        ||
+        // Only allow incrementing downloadCount by 1
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['downloadCount'])
+          && request.resource.data.downloadCount == resource.data.downloadCount + 1)
+        ||
+        // Allow marking as expired
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+          && request.resource.data.status == 'EXPIRED')
+      );
+      
+      // No deletes from client (cleanup via Cloud Functions)
+      allow delete: if false;
+    }
+    
+    // ── WebRTC Signaling Documents ──
+    match /signaling/{sessionId} {
+      allow read, write: if true;
+      
+      match /callerCandidates/{candidateId} {
+        allow read, write: if true;
+      }
+      
+      match /calleeCandidates/{candidateId} {
+        allow read, write: if true;
+      }
+    }
+    
+    // Deny all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

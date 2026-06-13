@@ -1,0 +1,140 @@
+/* ============================================
+   BYTEPORT — Transfer Settings Component
+   ============================================ */
+
+.transfer-settings {
+  margin-top: var(--space-6);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border);
+}
+
+.transfer-settings-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+.transfer-settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── Mode Toggle ── */
+.setting-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.setting-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.setting-toggle {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+}
+
+.setting-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-tertiary);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast);
+}
+
+.setting-toggle-btn:hover {
+  color: var(--color-text-secondary);
+}
+
+.setting-toggle-active {
+  background: var(--color-accent-cyan-dim);
+  color: var(--color-accent-cyan);
+}
+
+/* ── Setting Items ── */
+.setting-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+}
+
+.setting-item-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.setting-icon-cyan {
+  background: var(--color-accent-cyan-dim);
+  color: var(--color-accent-cyan);
+}
+
+.setting-icon-purple {
+  background: var(--color-accent-purple-dim);
+  color: var(--color-accent-purple);
+}
+
+.setting-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.setting-item-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.setting-item-value {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ── Badges ── */
+.setting-badge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.setting-badge-on {
+  background: var(--color-success-dim);
+  color: var(--color-success);
+}
+
+.setting-badge-info {
+  background: var(--color-accent-purple-dim);
+  color: var(--color-accent-purple);
+}
