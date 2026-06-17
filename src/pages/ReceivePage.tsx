@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { Download, AlertCircle, Loader2 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
@@ -23,26 +23,31 @@ export function ReceivePage() {
     error
   } = useWebRTCStore();
 
-  const [hasInitialized, setHasInitialized] = useState(false);
   const [joinUrl, setJoinUrl] = useState('');
   const [joinError, setJoinError] = useState('');
   const navigate = useNavigate();
+  const initRef = useRef(false);
 
   useEffect(() => {
-    // Attempt to connect immediately if valid link
-    if (sessionId && keyString && !hasInitialized) {
-      setHasInitialized(true);
-      initializeAsReceiver(sessionId, keyString).catch(console.error);
-    }
-  }, [sessionId, keyString, hasInitialized]);
+    // Guard against React Strict Mode double-mount and duplicate calls
+    if (!sessionId || !keyString || initRef.current) return;
+    initRef.current = true;
 
-  useEffect(() => {
-    // Component mounted
-  }, []);
+    console.log(`[ReceivePage] Initializing receiver for session: ${sessionId}`);
+    initializeAsReceiver(sessionId, keyString).catch(console.error);
+
+    return () => {
+      // On unmount (including Strict Mode teardown), clean up the connection
+      // so a remount can start fresh without orphaned PeerConnections.
+      console.log(`[ReceivePage] Cleanup: resetting WebRTC state`);
+      initRef.current = false;
+      reset();
+    };
+  }, [sessionId, keyString]);
 
   const handleCancel = () => {
+    initRef.current = false;
     reset();
-    setHasInitialized(false); // allow re-trigger if needed
   };
 
   const handleJoin = (e: React.FormEvent) => {
@@ -126,7 +131,7 @@ export function ReceivePage() {
           <GlassCard variant="default" padding="xl" className="receive-card">
             <div className="receive-content">
               <Button variant="primary" size="lg" onClick={() => {
-                setHasInitialized(false);
+                initRef.current = false;
                 reset();
               }}>Try Again</Button>
             </div>

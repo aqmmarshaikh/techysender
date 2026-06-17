@@ -153,34 +153,48 @@ export class WebRTCManager {
     };
 
     if (this.role === 'sender') {
-      console.log(`[WebRTC] Sender: Creating DataChannel`);
-      // Sender = Caller = Creates DataChannel
+      console.log(`[WebRTC] Sender [Step 1/8]: Initializing RTCPeerConnection ✓`);
+
+      console.log(`[WebRTC] Sender [Step 2/8]: Creating DataChannel`);
       this.dataChannel = this.pc.createDataChannel('byteport-transfer', {
         ordered: true,
       });
       this.setupDataChannel(this.dataChannel);
+      console.log(`[WebRTC] Sender [Step 2/8]: DataChannel created ✓`);
 
-      // Create Offer
-      console.log(`[WebRTC] Sender: Creating Offer`);
+      console.log(`[DEBUG] [WebRTC] Sender: Calling pc.createOffer()...`);
       const offer = await this.pc.createOffer();
+      console.log(`[DEBUG] [WebRTC] Sender: createOffer() resolved. Type: ${offer.type}`);
+      
+      console.log(`[DEBUG] [WebRTC] Sender: Calling pc.setLocalDescription()...`);
       await this.pc.setLocalDescription(offer);
+      console.log(`[DEBUG] [WebRTC] Sender: setLocalDescription() resolved.`);
 
       // Write Offer to Firestore
-      console.log(`[WebRTC] Sender: Saving Offer to signaling session`);
+      console.log(`[DEBUG] [WebRTC] Sender: Saving Offer to signaling session...`);
       await updateSession(this.sessionId, {
         offer: { type: offer.type, sdp: offer.sdp },
         status: 'connecting',
       });
+      console.log(`[DEBUG] [WebRTC] Sender: Offer successfully saved to Firestore.`);
 
       // Listen for Answer
-      console.log(`[WebRTC] Sender: Listening for Answer...`);
+      console.log(`[DEBUG] [WebRTC] Sender: Listening for Answer from Firestore...`);
+
+      console.log(`[WebRTC] Sender [Step 6/8]: ICE gathering started (candidates will upload as generated)`);
+
+      // Listen for Answer
+      console.log(`[WebRTC] Sender [Step 7/8]: Subscribing to Firestore session for Answer (sessionId=${this.sessionId})`);
       const unsub = subscribeToSession(this.sessionId, async (data) => {
         if (data.answer && this.pc && this.pc.signalingState === 'have-local-offer') {
-          console.log(`[WebRTC] Sender: Received Answer, setting remote description`);
+          console.log(`[DEBUG] [WebRTC] Sender: Received Answer from Firestore. Calling pc.setRemoteDescription()...`);
           await this.pc.setRemoteDescription(new RTCSessionDescription(data.answer));
+          console.log(`[DEBUG] [WebRTC] Sender: pc.setRemoteDescription() resolved.`);
           
           // Apply any buffered ICE candidates
           this.processPendingIceCandidates();
+        } else if (data.answer) {
+          console.warn(`[WebRTC] Sender: Answer arrived but signalingState=${this.pc?.signalingState} (expected have-local-offer). Ignoring.`);
         }
       });
       this.unsubscribes.push(unsub);
@@ -208,24 +222,30 @@ export class WebRTCManager {
       };
 
       // Listen for Offer
-      console.log(`[WebRTC] Receiver: Listening for Offer...`);
+      console.log(`[DEBUG] [WebRTC] Receiver: Listening for Offer from Firestore...`);
       const unsub = subscribeToSession(this.sessionId, async (data) => {
         if (data.offer && this.pc && this.pc.signalingState === 'stable') {
-          console.log(`[WebRTC] Receiver: Received Offer, setting remote description`);
+          console.log(`[DEBUG] [WebRTC] Receiver: Received Offer from Firestore. Calling pc.setRemoteDescription()...`);
           await this.pc.setRemoteDescription(new RTCSessionDescription(data.offer));
+          console.log(`[DEBUG] [WebRTC] Receiver: pc.setRemoteDescription() resolved.`);
           
           // Apply any buffered ICE candidates
           this.processPendingIceCandidates();
           
-          console.log(`[WebRTC] Receiver: Creating Answer`);
+          console.log(`[DEBUG] [WebRTC] Receiver: Calling pc.createAnswer()...`);
           const answer = await this.pc.createAnswer();
+          console.log(`[DEBUG] [WebRTC] Receiver: pc.createAnswer() resolved. Type: ${answer.type}`);
+          
+          console.log(`[DEBUG] [WebRTC] Receiver: Calling pc.setLocalDescription()...`);
           await this.pc.setLocalDescription(answer);
+          console.log(`[DEBUG] [WebRTC] Receiver: pc.setLocalDescription() resolved.`);
 
           // Write Answer to Firestore
-          console.log(`[WebRTC] Receiver: Saving Answer to signaling session`);
+          console.log(`[DEBUG] [WebRTC] Receiver: Saving Answer to signaling session...`);
           await updateSession(this.sessionId, {
             answer: { type: answer.type, sdp: answer.sdp },
           });
+          console.log(`[DEBUG] [WebRTC] Receiver: Answer successfully saved to Firestore.`);
         }
       });
       this.unsubscribes.push(unsub);
@@ -259,16 +279,16 @@ export class WebRTCManager {
   }
 
   private setupDataChannel(channel: RTCDataChannel) {
-    console.log(`[WebRTC] Setting up DataChannel events. Current readyState: ${channel.readyState}`);
+    console.log(`[DEBUG] [WebRTC] DataChannel '${channel.label}' state changed to: ${channel.readyState}`);
     channel.binaryType = 'arraybuffer';
 
     channel.onopen = () => {
-      console.log(`[WebRTC] EXPLICIT LOG: DataChannel reached OPEN state! (readyState: ${channel.readyState})`);
+      console.log(`[DEBUG] [WebRTC] DataChannel is OPEN.`);
       this.callbacks.onStatusChange('channel-open');
     };
 
     channel.onclose = () => {
-      console.log(`[WebRTC] DataChannel onclose fired. ReadyState: ${channel.readyState}`);
+      console.log(`[DEBUG] [WebRTC] DataChannel is CLOSED.`);
       if (this.isDisconnecting || this.isTransferComplete) {
         console.log(`[WebRTC] Ignoring channel-closed as connection is completing or disconnecting.`);
       } else {

@@ -35,14 +35,15 @@ export interface SignalingSession {
  * Receiver sees Offer -> writes Answer -> Callee.
  */
 export async function createSignalingSession(sessionId: string): Promise<void> {
-  console.log(`[Signaling] Creating session: ${sessionId}`);
+  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
+  console.log(`[DEBUG] [Signaling] Creating session document...`);
   const sessionRef = doc(db, 'signaling', sessionId);
   await setDoc(sessionRef, {
     sessionId,
     status: 'waiting',
     createdAt: serverTimestamp(),
   });
-  console.log(`[Signaling] Session created successfully`);
+  console.log(`[DEBUG] [Signaling] Session document created successfully.`);
 }
 
 /**
@@ -54,34 +55,38 @@ export async function checkSignalingSession(sessionId: string): Promise<boolean>
   return snap.exists();
 }
 
-/**
- * Delete a signaling session and its subcollections (done by receiver when done).
- */
 export async function deleteSignalingSession(sessionId: string): Promise<void> {
-  console.log(`[Signaling] Deleting session: ${sessionId}`);
+  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
+  console.log(`[DEBUG] [Signaling] Updating session status to disconnected...`);
   const sessionRef = doc(db, 'signaling', sessionId);
   await updateDoc(sessionRef, { status: 'disconnected' });
+  console.log(`[DEBUG] [Signaling] Session status updated to disconnected.`);
 }
 
 export function subscribeToSession(
   sessionId: string,
   onUpdate: (data: Partial<SignalingSession>) => void
 ) {
-  console.log(`[Signaling] Subscribing to session updates: ${sessionId}`);
+  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
+  console.log(`[DEBUG] [Signaling] Subscribing to session updates...`);
   const sessionRef = doc(db, 'signaling', sessionId);
   return onSnapshot(sessionRef, (snap) => {
     if (snap.exists()) {
       const data = snap.data() as Partial<SignalingSession>;
-      console.log(`[Signaling] Session update received:`, data);
+      console.log(`[DEBUG] [Signaling] Session snapshot received:\n`, JSON.stringify(data, null, 2));
       onUpdate(data);
+    } else {
+      console.log(`[DEBUG] [Signaling] Session snapshot received, but document does not exist.`);
     }
   });
 }
 
 export async function updateSession(sessionId: string, data: Partial<SignalingSession>) {
-  console.log(`[Signaling] Updating session ${sessionId}:`, data);
+  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
+  console.log(`[DEBUG] [Signaling] Updating session document with data:\n`, JSON.stringify(data, null, 2));
   const sessionRef = doc(db, 'signaling', sessionId);
   await updateDoc(sessionRef, data);
+  console.log(`[DEBUG] [Signaling] Session document updated successfully.`);
 }
 
 export async function addIceCandidate(
@@ -89,10 +94,12 @@ export async function addIceCandidate(
   type: 'caller' | 'callee',
   candidate: RTCIceCandidateInit
 ) {
-  console.log(`[Signaling] Adding ICE candidate for ${type}`);
+  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
+  console.log(`[DEBUG] [Signaling] Adding ICE candidate for ${type}...`);
   const collectionName = type === 'caller' ? 'callerCandidates' : 'calleeCandidates';
   const candidatesRef = collection(db, 'signaling', sessionId, collectionName);
   await addDoc(candidatesRef, candidate);
+  console.log(`[DEBUG] [Signaling] ICE candidate for ${type} added successfully.`);
 }
 
 export function subscribeToIceCandidates(
@@ -100,14 +107,15 @@ export function subscribeToIceCandidates(
   type: 'caller' | 'callee',
   onCandidate: (candidate: RTCIceCandidateInit) => void
 ) {
-  console.log(`[Signaling] Subscribing to ICE candidates for ${type}`);
+  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
+  console.log(`[DEBUG] [Signaling] Subscribing to ICE candidates for ${type}...`);
   const collectionName = type === 'caller' ? 'callerCandidates' : 'calleeCandidates';
   const candidatesRef = collection(db, 'signaling', sessionId, collectionName);
   return onSnapshot(candidatesRef, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         const data = change.doc.data();
-        console.log(`[Signaling] New ICE candidate received from ${type}`);
+        console.log(`[DEBUG] [Signaling] New ICE candidate snapshot received from ${type}:\n`, JSON.stringify(data, null, 2));
         onCandidate(data as RTCIceCandidateInit);
       }
     });

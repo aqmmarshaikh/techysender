@@ -48,6 +48,30 @@ interface WebRTCState {
 let webrtcManager: WebRTCManager | null = null;
 let beforeUnloadHandler: (() => void) | null = null;
 
+// Monotonically increasing ID to detect stale async continuations.
+// Each call to initializeAsSender/initializeAsReceiver gets an ID;
+// if the ID has changed by the time an `await` resumes, the call is stale.
+let currentInitId = 0;
+
+// Diagnostic counters for debugging Strict Mode / lifecycle issues
+let peerConnectionCreateCount = 0;
+let peerConnectionDestroyCount = 0;
+let dataChannelCreateCount = 0;
+let dataChannelCloseCount = 0;
+
+function cleanupExistingManager() {
+  if (webrtcManager) {
+    console.warn(`[WebRTC Store] Cleaning up EXISTING WebRTCManager before creating a new one. (PC created: ${peerConnectionCreateCount}, PC destroyed: ${peerConnectionDestroyCount})`);
+    webrtcManager.disconnect();
+    webrtcManager = null;
+    peerConnectionDestroyCount++;
+    console.log(`[WebRTC Store] Lifecycle: PeerConnections created=${peerConnectionCreateCount}, destroyed=${peerConnectionDestroyCount}`);
+  }
+  // Invalidate any in-flight async initialization
+  currentInitId++;
+  console.log(`[WebRTC Store] Incremented initId to ${currentInitId} (any in-flight init with a lower ID will abort)`);
+}
+
 export const useWebRTCStore = create<WebRTCState>((set, get) => ({
   sessionId: null,
   encryptionKey: null,
@@ -59,7 +83,14 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
   receivedFiles: [],
 
   initializeAsSender: async () => {
+    // Guard: clean up any orphaned manager from a previous mount
+    cleanupExistingManager();
+    const myInitId = currentInitId;
+
+    console.log(`[WebRTC Store] ▶ Sender: Generate Link clicked (initId=${myInitId})`);
+
     const sessionId = generateTransferId();
+    console.log(`[WebRTC Store] ▶ Sender: Generated sessionId=${sessionId}`);
     
     // Setup cleanup on tab close
     if (beforeUnloadHandler) window.removeEventListener('beforeunload', beforeUnloadHandler);
@@ -68,6 +99,11 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
     
     // Generate AES key for encryption
     const cryptoKey = await generateKey();
+    if (myInitId !== currentInitId) {
+      console.warn(`[WebRTC Store] ✖ Sender: STALE init detected after generateKey (myId=${myInitId}, current=${currentInitId}). Aborting.`);
+      return;
+    }
+
     const keyString = await exportKey(cryptoKey);
     const shareUrl = buildReceiveUrl(sessionId) + `#${keyString}`;
 
@@ -82,10 +118,17 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
     });
 
     try {
-      console.log(`[WebRTC Store] Sender: Creating signaling session in Firestore...`);
+      console.log(`[WebRTC Store] ▶ Sender: Creating signaling session in Firestore (sessionId=${sessionId})...`);
       await createSignalingSession(sessionId);
+      if (myInitId !== currentInitId) {
+        console.warn(`[WebRTC Store] ✖ Sender: STALE init detected after createSignalingSession. Aborting.`);
+        return;
+      }
+      console.log(`[WebRTC Store] ✓ Sender: Signaling session created successfully`);
 
-      console.log(`[WebRTC Store] Sender: Initializing WebRTCManager`);
+      peerConnectionCreateCount++;
+      dataChannelCreateCount++;
+      console.log(`[WebRTC Store] ▶ Sender: Initializing WebRTCManager (PC #${peerConnectionCreateCount}, DC #${dataChannelCreateCount})`);
       webrtcManager = new WebRTCManager('sender', sessionId, cryptoKey, {
         onStatusChange: (status) => {
           if (status === 'connected') set({ connectionState: 'connected' });
@@ -105,10 +148,16 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
       });
 
       await webrtcManager.initialize();
-      console.log(`[WebRTC Store] Sender: Initialization complete`);
+      if (myInitId !== currentInitId) {
+        console.warn(`[WebRTC Store] ✖ Sender: STALE init detected after initialize(). Disconnecting orphaned manager.`);
+        webrtcManager?.disconnect();
+        webrtcManager = null;
+        return;
+      }
+      console.log(`[WebRTC Store] ✓ Sender: Initialization complete (sessionId=${sessionId})`);
 
     } catch (err) {
-      console.error(`[WebRTC Store] Sender initialization failed:`, err);
+      console.error(`[WebRTC Store] ✖ Sender initialization FAILED:`, err);
       const errorMsg = err instanceof Error ? err.message : 'Failed to initialize sender';
       set({ error: errorMsg, connectionState: 'failed' });
       throw err;
@@ -116,6 +165,12 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
   },
 
   initializeAsReceiver: async (sessionId: string, keyString: string) => {
+    // Guard: clean up any orphaned manager from a previous mount
+    cleanupExistingManager();
+    const myInitId = currentInitId;
+
+    console.log(`[WebRTC Store] ▶ Receiver: initializeAsReceiver called (initId=${myInitId}, sessionId=${sessionId})`);
+
     // Setup cleanup on tab close
     if (beforeUnloadHandler) window.removeEventListener('beforeunload', beforeUnloadHandler);
     beforeUnloadHandler = () => get().disconnect();
@@ -131,11 +186,17 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
     });
 
     try {
-      console.log(`[WebRTC Store] Receiver: Importing AES key from URL`);
+      console.log(`[WebRTC Store] ▶ Receiver: Importing AES key from URL`);
       const cryptoKey = await importKey(keyString);
+      if (myInitId !== currentInitId) {
+        console.warn(`[WebRTC Store] ✖ Receiver: STALE init detected after importKey (myId=${myInitId}, current=${currentInitId}). Aborting.`);
+        return;
+      }
       set({ encryptionKey: cryptoKey });
 
-      console.log(`[WebRTC Store] Receiver: Initializing WebRTCManager`);
+      peerConnectionCreateCount++;
+      dataChannelCreateCount++;
+      console.log(`[WebRTC Store] ▶ Receiver: Initializing WebRTCManager (PC #${peerConnectionCreateCount}, DC #${dataChannelCreateCount}, initId=${myInitId})`);
       webrtcManager = new WebRTCManager('receiver', sessionId, cryptoKey, {
         onStatusChange: (status) => {
           if (status === 'connected') set({ connectionState: 'connected' });
@@ -170,10 +231,16 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
       });
 
       await webrtcManager.initialize();
-      console.log(`[WebRTC Store] Receiver: Initialization complete`);
+      if (myInitId !== currentInitId) {
+        console.warn(`[WebRTC Store] ✖ Receiver: STALE init detected after initialize(). Disconnecting orphaned manager.`);
+        webrtcManager?.disconnect();
+        webrtcManager = null;
+        return;
+      }
+      console.log(`[WebRTC Store] ✓ Receiver: Initialization complete (sessionId=${sessionId}, initId=${myInitId})`);
 
     } catch (err) {
-      console.error(`[WebRTC Store] Receiver initialization failed:`, err);
+      console.error(`[WebRTC Store] ✖ Receiver initialization FAILED:`, err);
       const errorMsg = err instanceof Error ? err.message : 'Failed to initialize receiver';
       set({ error: errorMsg, connectionState: 'failed' });
       throw err;
@@ -194,10 +261,16 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
   },
 
   disconnect: () => {
-    console.log(`[WebRTC Store] Disconnecting and cleaning up...`);
+    console.log(`[WebRTC Store] Disconnecting and cleaning up... (currentInitId=${currentInitId})`);
+    // Invalidate any in-flight async init so stale continuations abort
+    currentInitId++;
+
     if (webrtcManager) {
       webrtcManager.disconnect();
       webrtcManager = null;
+      peerConnectionDestroyCount++;
+      dataChannelCloseCount++;
+      console.log(`[WebRTC Store] Lifecycle: PeerConnections created=${peerConnectionCreateCount}, destroyed=${peerConnectionDestroyCount}, DataChannels created=${dataChannelCreateCount}, closed=${dataChannelCloseCount}`);
     }
     
     const { sessionId, role } = get();
