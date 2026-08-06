@@ -56,6 +56,11 @@ service cloud.firestore {
       }
     }
     
+    // ── Short Links Documents ──
+    match /shortLinks/{shortCode} {
+      allow read, write: if true;
+    }
+    
     // Deny all other collections
     match /{document=**} {
       allow read, write: if false;

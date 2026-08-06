@@ -5,6 +5,7 @@ import { HomePage } from './pages/HomePage';
 import { SendPage } from './pages/SendPage';
 import { ReceivePage } from './pages/ReceivePage';
 import { PrivacyPage } from './pages/PrivacyPage';
+import { ShortLinkRedirector } from './pages/ShortLinkRedirector';
 
 export function App() {
   return (
@@ -15,6 +16,7 @@ export function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/send" element={<SendPage />} />
           <Route path="/receive" element={<ReceivePage />} />
+          <Route path="/s/:shortCode" element={<ShortLinkRedirector />} />
           <Route path="/privacy" element={<PrivacyPage />} />
         </Routes>
       </main>

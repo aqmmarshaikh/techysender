@@ -55,6 +55,13 @@ export function ReceivePage() {
     setJoinError('');
     try {
       const url = new URL(joinUrl);
+      
+      // Check if it's a short link
+      if (url.pathname.startsWith('/s/')) {
+        navigate(url.pathname);
+        return;
+      }
+
       const id = url.searchParams.get('id');
       const hash = url.hash;
       

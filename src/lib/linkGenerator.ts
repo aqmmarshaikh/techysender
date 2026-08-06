@@ -16,6 +16,29 @@ export function generateTransferId(): string {
 }
 
 /**
+ * Generate a random 6-8 character short code.
+ */
+export function generateShortCode(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const length = Math.floor(Math.random() * 3) + 6; // 6 to 8
+  let result = '';
+  const randomValues = new Uint32Array(length);
+  crypto.getRandomValues(randomValues);
+  for (let i = 0; i < length; i++) {
+    result += chars[randomValues[i] % chars.length];
+  }
+  return result;
+}
+
+/**
+ * Build a short URL.
+ */
+export function buildShortUrl(shortCode: string): string {
+  const baseUrl = window.location.origin;
+  return `${baseUrl}/s/${shortCode}`;
+}
+
+/**
  * Build a shareable transfer URL with the encryption key in the fragment.
  * The fragment (#key) is never sent to the server per HTTP spec.
  *

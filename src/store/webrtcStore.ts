@@ -7,9 +7,9 @@
 import { create } from 'zustand';
 import { WebRTCManager, type WebRTCProgress } from '../lib/webrtc/peerConnection';
 import { createSignalingSession, deleteSignalingSession } from '../lib/webrtc/signaling';
-import { generateTransferId, buildReceiveUrl } from '../lib/linkGenerator';
+import { generateTransferId, buildReceiveUrl, buildShortUrl } from '../lib/linkGenerator';
 import { generateKey, exportKey, importKey } from '../lib/encryption';
-
+import { createShortLink } from '../lib/webrtc/shortLinks';
 export type WebRTCConnectionState =
   | 'idle'
   | 'waiting' // Receiver waiting for sender
@@ -31,6 +31,7 @@ interface WebRTCState {
   sessionId: string | null;
   encryptionKey: CryptoKey | null;
   shareUrl: string | null;
+  shortUrl: string | null;
   connectionState: WebRTCConnectionState;
   role: 'sender' | 'receiver' | null;
   error: string | null;
@@ -40,6 +41,7 @@ interface WebRTCState {
   // Actions
   initializeAsSender: () => Promise<void>;
   initializeAsReceiver: (sessionId: string, keyString: string) => Promise<void>;
+  generateNewShortLink: () => Promise<void>;
   sendFiles: (files: File[]) => Promise<void>;
   disconnect: () => void;
   reset: () => void;
@@ -76,6 +78,7 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
   sessionId: null,
   encryptionKey: null,
   shareUrl: null,
+  shortUrl: null,
   connectionState: 'idle',
   role: null,
   error: null,
@@ -107,10 +110,20 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
     const keyString = await exportKey(cryptoKey);
     const shareUrl = buildReceiveUrl(sessionId) + `#${keyString}`;
 
+    // Create the initial short link in background (do not block initialization if it fails)
+    let shortUrl: string | null = null;
+    try {
+      const shortCode = await createShortLink(sessionId, keyString);
+      shortUrl = buildShortUrl(shortCode);
+    } catch (error) {
+      console.error('[WebRTC Store] Failed to generate initial short link', error);
+    }
+
     set({
       sessionId,
       encryptionKey: cryptoKey,
       shareUrl,
+      shortUrl,
       role: 'sender',
       connectionState: 'waiting',
       error: null,
@@ -161,6 +174,19 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
       const errorMsg = err instanceof Error ? err.message : 'Failed to initialize sender';
       set({ error: errorMsg, connectionState: 'failed' });
       throw err;
+    }
+  },
+
+  generateNewShortLink: async () => {
+    const { sessionId, encryptionKey } = get();
+    if (!sessionId || !encryptionKey) return;
+    try {
+      const keyString = await exportKey(encryptionKey);
+      const shortCode = await createShortLink(sessionId, keyString);
+      const shortUrl = buildShortUrl(shortCode);
+      set({ shortUrl });
+    } catch (error) {
+      console.error('[WebRTC Store] Failed to generate new short link', error);
     }
   },
 
@@ -292,6 +318,7 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
       sessionId: null,
       encryptionKey: null,
       shareUrl: null,
+      shortUrl: null,
       connectionState: 'idle',
       role: null,
       error: null,
