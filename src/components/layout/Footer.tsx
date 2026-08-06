@@ -14,7 +14,7 @@ export function Footer() {
               <div className="footer-logo-icon">
                 <Zap size={18} />
               </div>
-              <span className="footer-logo-text">BYTE<span className="text-gradient">PORT</span></span>
+              <span className="footer-logo-text">TECHY<span className="text-gradient">SENDER</span></span>
             </Link>
             <p className="footer-tagline">Fast. Temporary. Private.</p>
             <p className="footer-description">
@@ -29,6 +29,7 @@ export function Footer() {
               <Link to="/send" className="footer-link">Send Files</Link>
               <Link to="/receive" className="footer-link">Receive Files</Link>
               <Link to="/privacy" className="footer-link">Privacy</Link>
+              <Link to="/developer" className="footer-link">Developer</Link>
             </div>
 
             <div className="footer-column">
@@ -62,10 +63,10 @@ export function Footer() {
         {/* Bottom Section */}
         <div className="footer-bottom">
           <p className="footer-copyright">
-            &copy; {new Date().getFullYear()} BYTEPORT. Open source project built with <Heart size={12} className="footer-heart" /> for privacy.
+            &copy; {new Date().getFullYear()} TECHYSENDER. Open source project built with <Heart size={12} className="footer-heart" /> for privacy.
           </p>
           <div className="footer-bottom-links">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="footer-bottom-link">
+            <a href="https://github.com/aqmmarshaikh/techysender.git" target="_blank" rel="noopener noreferrer" className="footer-bottom-link">
               <ExternalLink size={16} />
               <span>GitHub</span>
             </a>

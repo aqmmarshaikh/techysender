@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Send, Download, Shield, ExternalLink, Menu, X, Zap } from 'lucide-react';
+import { Send, Download, Shield, Code, ExternalLink, Menu, X, Zap } from 'lucide-react';
 import { Button } from '../ui/Button';
 import './Navbar.css';
 
@@ -14,11 +14,11 @@ export function Navbar() {
     <nav className="navbar" role="navigation" aria-label="Main navigation">
       <div className="navbar-inner container">
         {/* Logo */}
-        <Link to="/" className="navbar-logo" aria-label="BYTEPORT home">
+        <Link to="/" className="navbar-logo" aria-label="TECHYSENDER home">
           <div className="navbar-logo-icon">
             <Zap size={20} />
           </div>
-          <span className="navbar-logo-text">BYTE<span className="text-gradient">PORT</span></span>
+          <span className="navbar-logo-text">TECHY<span className="text-gradient">SENDER</span></span>
         </Link>
 
         {/* Desktop Nav */}
@@ -35,12 +35,16 @@ export function Navbar() {
             <Shield size={16} />
             <span>Privacy</span>
           </Link>
+          <Link to="/developer" className={`navbar-link ${isActive('/developer') ? 'navbar-link-active' : ''}`}>
+            <Code size={16} />
+            <span>Developer</span>
+          </Link>
         </div>
 
         {/* Desktop Actions */}
         <div className="navbar-actions">
           <a
-            href="https://github.com"
+            href="https://github.com/aqmmarshaikh/techysender.git"
             target="_blank"
             rel="noopener noreferrer"
             className="navbar-link navbar-github"
@@ -80,6 +84,10 @@ export function Navbar() {
           <Link to="/privacy" className="navbar-mobile-link" onClick={() => setMobileOpen(false)}>
             <Shield size={18} />
             <span>Privacy</span>
+          </Link>
+          <Link to="/developer" className="navbar-mobile-link" onClick={() => setMobileOpen(false)}>
+            <Code size={18} />
+            <span>Developer</span>
           </Link>
           <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="navbar-mobile-link">
             <ExternalLink size={18} />

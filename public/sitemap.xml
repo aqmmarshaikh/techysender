@@ -33,4 +33,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://techysender.vercel.app/privacy" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://techysender.vercel.app/privacy" />
   </url>
+  <url>
+    <loc>https://techysender.vercel.app/developer</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://techysender.vercel.app/developer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://techysender.vercel.app/developer" />
+  </url>
 </urlset>

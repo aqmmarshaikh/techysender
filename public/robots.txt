@@ -5,6 +5,7 @@ Allow: /
 Allow: /send
 Allow: /receive
 Allow: /privacy
+Allow: /developer
 
 # Disallow private peer transfer short links from being indexed
 Disallow: /s/
