@@ -8,6 +8,8 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
+  if (location.pathname === '/developer') return null;
+
   const isActive = (path: string) => location.pathname === path;
 
   return (

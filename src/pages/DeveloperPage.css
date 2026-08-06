@@ -1,4 +1,19 @@
-.dev-page-root {
+
+.developerPageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: #03030a;
+  color: #e6f0ff;
+  font-family: 'Rajdhani', sans-serif;
+  z-index: 100;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.developerPageContainer {
 
     --bg: #03030a;
     --bg-2: #070713;
@@ -18,7 +33,7 @@
 
 }
 
-.dev-page-root * {
+.developerPageContainer * {
 
     margin: 0;
     padding: 0;
@@ -26,13 +41,13 @@
 
 }
 
-.dev-page-root {
+.developerPageContainer {
 
     scroll-behavior: smooth
 
 }
 
-.dev-page-root {
+.developerPageContainer, .developerPageContainer {
 
     background: var(--bg);
     color: var(--text);
@@ -41,61 +56,61 @@
 
 }
 
-.dev-page-root {
+.developerPageContainer {
 
     min-height: 100vh;
     cursor: none
 
 }
 
-.dev-page-root img {
+.developerPageContainer img {
 
     max-width: 100%;
     display: block
 
 }
 
-.dev-page-root a {
+.developerPageContainer a {
 
     color: inherit;
     text-decoration: none
 
 }
 
-.dev-page-root button {
+.developerPageContainer button {
 
     font-family: inherit;
     cursor: none
 
 }
 
-.dev-page-root::selection {
+.developerPageContainer::selection {
 
     background: var(--cyan);
     color: #000
 
 }
 
-.dev-page-root::-webkit-scrollbar {
+.developerPageContainer::-webkit-scrollbar {
 
     width: 8px
 
 }
 
-.dev-page-root::-webkit-scrollbar-track {
+.developerPageContainer::-webkit-scrollbar-track {
 
     background: #05050d
 
 }
 
-.dev-page-root::-webkit-scrollbar-thumb {
+.developerPageContainer::-webkit-scrollbar-thumb {
 
     background: linear-gradient(var(--cyan), var(--purple));
     border-radius: 8px
 
 }
 
-.dev-page-root .cursor-dot, .dev-page-root .cursor-ring {
+.developerPageContainer .cursor-dot, .developerPageContainer .cursor-ring {
 
     position: fixed;
     top: 0;
@@ -108,7 +123,7 @@
 
 }
 
-.dev-page-root .cursor-dot {
+.developerPageContainer .cursor-dot {
 
     width: 6px;
     height: 6px;
@@ -117,7 +132,7 @@
 
 }
 
-.dev-page-root .cursor-ring {
+.developerPageContainer .cursor-ring {
 
     width: 36px;
     height: 36px;
@@ -126,7 +141,7 @@
 
 }
 
-.dev-page-root .cursor-ring.hover {
+.developerPageContainer .cursor-ring.hover {
 
     width: 60px;
     height: 60px;
@@ -135,7 +150,7 @@
 
 }
 
-.dev-page-root .loader {
+.developerPageContainer .loader {
 
     position: fixed;
     inset: 0;
@@ -147,14 +162,14 @@
 
 }
 
-.dev-page-root .loader.hidden {
+.developerPageContainer .loader.hidden {
 
     opacity: 0;
     visibility: hidden
 
 }
 
-.dev-page-root .loader-grid {
+.developerPageContainer .loader-grid {
 
     position: absolute;
     inset: 0;
@@ -164,7 +179,7 @@
 
 }
 
-.dev-page-root .loader-content {
+.developerPageContainer .loader-content {
 
     position: relative;
     text-align: center;
@@ -172,7 +187,7 @@
 
 }
 
-.dev-page-root .loader-logo {
+.developerPageContainer .loader-logo {
 
     font-family: 'Orbitron', sans-serif;
     font-size: 38px;
@@ -182,13 +197,13 @@
 
 }
 
-.dev-page-root .loader-logo .brk {
+.developerPageContainer .loader-logo .brk {
 
     color: var(--cyan)
 
 }
 
-.dev-page-root .loader-text {
+.developerPageContainer .loader-text {
 
     background: var(--grad);
     -webkit-background-clip: text;
@@ -197,7 +212,7 @@
 
 }
 
-.dev-page-root .loader-bar {
+.developerPageContainer .loader-bar {
 
     width: 340px;
     max-width: 80vw;
@@ -209,7 +224,7 @@
 
 }
 
-.dev-page-root .loader-fill {
+.developerPageContainer .loader-fill {
 
     height: 100%;
     width: 0;
@@ -219,7 +234,7 @@
 
 }
 
-.dev-page-root .loader-status {
+.developerPageContainer .loader-status {
 
     margin-top: 18px;
     font-family: 'JetBrains Mono', monospace;
@@ -229,7 +244,7 @@
 
 }
 
-.dev-page-root .loader-rings {
+.developerPageContainer .loader-rings {
 
     position: absolute;
     top: 50%;
@@ -241,7 +256,7 @@
 
 }
 
-.dev-page-root .loader-rings div {
+.developerPageContainer .loader-rings div {
 
     position: absolute;
     inset: 0;
@@ -252,7 +267,7 @@
 
 }
 
-.dev-page-root .loader-rings div:nth-child(2) {
+.developerPageContainer .loader-rings div:nth-child(2) {
 
     inset: 30px;
     animation-duration: 3s;
@@ -261,7 +276,7 @@
 
 }
 
-.dev-page-root .loader-rings div:nth-child(3) {
+.developerPageContainer .loader-rings div:nth-child(3) {
 
     inset: 60px;
     animation-duration: 4s;
@@ -277,7 +292,7 @@
 
 }
 
-.dev-page-root #particles {
+.developerPageContainer #particles {
 
     position: fixed;
     inset: 0;
@@ -286,7 +301,7 @@
 
 }
 
-.dev-page-root .grid-overlay {
+.developerPageContainer .grid-overlay {
 
     position: fixed;
     inset: 0;
@@ -299,7 +314,7 @@
 
 }
 
-.dev-page-root .scan-lines {
+.developerPageContainer .scan-lines {
 
     position: fixed;
     inset: 0;
@@ -311,7 +326,7 @@
 
 }
 
-.dev-page-root .mouse-glow {
+.developerPageContainer .mouse-glow {
 
     position: fixed;
     width: 600px;
@@ -326,7 +341,7 @@
 
 }
 
-.dev-page-root .bg-orbs {
+.developerPageContainer .bg-orbs {
 
     position: fixed;
     inset: 0;
@@ -336,7 +351,7 @@
 
 }
 
-.dev-page-root .orb {
+.developerPageContainer .orb {
 
     position: absolute;
     border-radius: 50%;
@@ -346,7 +361,7 @@
 
 }
 
-.dev-page-root .orb-1 {
+.developerPageContainer .orb-1 {
 
     width: 500px;
     height: 500px;
@@ -356,7 +371,7 @@
 
 }
 
-.dev-page-root .orb-2 {
+.developerPageContainer .orb-2 {
 
     width: 600px;
     height: 600px;
@@ -367,7 +382,7 @@
 
 }
 
-.dev-page-root .orb-3 {
+.developerPageContainer .orb-3 {
 
     width: 400px;
     height: 400px;
@@ -393,7 +408,7 @@
 
 }
 
-.dev-page-root .nav {
+.developerPageContainer .nav {
 
     position: fixed;
     top: 0;
@@ -405,7 +420,7 @@
 
 }
 
-.dev-page-root .nav.scrolled {
+.developerPageContainer .nav.scrolled {
 
     padding: 14px 40px;
     background: rgba(3, 3, 10, .7);
@@ -414,7 +429,7 @@
 
 }
 
-.dev-page-root .nav-inner {
+.developerPageContainer .nav-inner {
 
     max-width: 1500px;
     margin: 0 auto;
@@ -425,7 +440,7 @@
 
 }
 
-.dev-page-root .nav-logo {
+.developerPageContainer .nav-logo {
 
     display: flex;
     align-items: center;
@@ -437,7 +452,7 @@
 
 }
 
-.dev-page-root .nav-logo b {
+.developerPageContainer .nav-logo b {
 
     background: var(--grad);
     -webkit-background-clip: text;
@@ -446,7 +461,7 @@
 
 }
 
-.dev-page-root .logo-mark {
+.developerPageContainer .logo-mark {
 
     width: 32px;
     height: 32px;
@@ -455,7 +470,7 @@
 
 }
 
-.dev-page-root .nav-links {
+.developerPageContainer .nav-links {
 
     display: flex;
     gap: 6px;
@@ -463,7 +478,7 @@
 
 }
 
-.dev-page-root .nav-links a {
+.developerPageContainer .nav-links a {
 
     position: relative;
     padding: 10px 16px;
@@ -477,7 +492,7 @@
 
 }
 
-.dev-page-root .nav-links a::before {
+.developerPageContainer .nav-links a::before {
 
     content: attr(data-num);
     position: absolute;
@@ -491,19 +506,19 @@
 
 }
 
-.dev-page-root .nav-links a:hover, .dev-page-root .nav-links a.active {
+.developerPageContainer .nav-links a:hover, .developerPageContainer .nav-links a.active {
 
     color: #fff
 
 }
 
-.dev-page-root .nav-links a:hover::before, .dev-page-root .nav-links a.active::before {
+.developerPageContainer .nav-links a:hover::before, .developerPageContainer .nav-links a.active::before {
 
     opacity: 1
 
 }
 
-.dev-page-root .nav-links a::after {
+.developerPageContainer .nav-links a::after {
 
     content: '';
     position: absolute;
@@ -518,13 +533,13 @@
 
 }
 
-.dev-page-root .nav-links a:hover::after, .dev-page-root .nav-links a.active::after {
+.developerPageContainer .nav-links a:hover::after, .developerPageContainer .nav-links a.active::after {
 
     width: 60%
 
 }
 
-.dev-page-root .nav-cta {
+.developerPageContainer .nav-cta {
 
     display: flex;
     align-items: center;
@@ -540,7 +555,7 @@
 
 }
 
-.dev-page-root .status-dot {
+.developerPageContainer .status-dot {
 
     width: 6px;
     height: 6px;
@@ -565,7 +580,7 @@
 
 }
 
-.dev-page-root .nav-burger {
+.developerPageContainer .nav-burger {
 
     display: none;
     width: 34px;
@@ -580,7 +595,7 @@
 
 }
 
-.dev-page-root .nav-burger span {
+.developerPageContainer .nav-burger span {
 
     width: 18px;
     height: 1.5px;
@@ -589,7 +604,7 @@
 
 }
 
-.dev-page-root .gradient {
+.developerPageContainer .gradient {
 
     background: var(--grad);
     -webkit-background-clip: text;
@@ -598,19 +613,19 @@
 
 }
 
-.dev-page-root .cyan {
+.developerPageContainer .cyan {
 
     color: var(--cyan)
 
 }
 
-.dev-page-root .ok {
+.developerPageContainer .ok {
 
     color: #00ff88
 
 }
 
-.dev-page-root .section {
+.developerPageContainer .section {
 
     position: relative;
     max-width: 1500px;
@@ -620,14 +635,14 @@
 
 }
 
-.dev-page-root .section-head {
+.developerPageContainer .section-head {
 
     margin-bottom: 80px;
     position: relative
 
 }
 
-.dev-page-root .sec-num {
+.developerPageContainer .sec-num {
 
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
@@ -637,7 +652,7 @@
 
 }
 
-.dev-page-root .sec-title {
+.developerPageContainer .sec-title {
 
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(36px, 6vw, 72px);
@@ -647,7 +662,7 @@
 
 }
 
-.dev-page-root .sec-line {
+.developerPageContainer .sec-line {
 
     position: absolute;
     bottom: -26px;
@@ -659,7 +674,7 @@
 
 }
 
-.dev-page-root .panel {
+.developerPageContainer .panel {
 
     position: relative;
     background: linear-gradient(135deg, var(--panel), var(--panel-2));
@@ -670,7 +685,7 @@
 
 }
 
-.dev-page-root .panel::before {
+.developerPageContainer .panel::before {
 
     content: '';
     position: absolute;
@@ -685,7 +700,7 @@
 
 }
 
-.dev-page-root .panel-bar {
+.developerPageContainer .panel-bar {
 
     display: flex;
     align-items: center;
@@ -699,26 +714,26 @@
 
 }
 
-.dev-page-root .panel-title {
+.developerPageContainer .panel-title {
 
     color: var(--cyan)
 
 }
 
-.dev-page-root .panel-meta {
+.developerPageContainer .panel-meta {
 
     color: var(--muted)
 
 }
 
-.dev-page-root .dots {
+.developerPageContainer .dots {
 
     display: flex;
     gap: 6px
 
 }
 
-.dev-page-root .dots i {
+.developerPageContainer .dots i {
 
     width: 10px;
     height: 10px;
@@ -727,25 +742,25 @@
 
 }
 
-.dev-page-root .dots i:nth-child(1) {
+.developerPageContainer .dots i:nth-child(1) {
 
     background: #ff5f56
 
 }
 
-.dev-page-root .dots i:nth-child(2) {
+.developerPageContainer .dots i:nth-child(2) {
 
     background: #ffbd2e
 
 }
 
-.dev-page-root .dots i:nth-child(3) {
+.developerPageContainer .dots i:nth-child(3) {
 
     background: #27c93f
 
 }
 
-.dev-page-root .hud-corner {
+.developerPageContainer .hud-corner {
 
     position: absolute;
     width: 40px;
@@ -756,7 +771,7 @@
 
 }
 
-.dev-page-root .hud-corner.tl {
+.developerPageContainer .hud-corner.tl {
 
     top: 24px;
     left: 24px;
@@ -765,7 +780,7 @@
 
 }
 
-.dev-page-root .hud-corner.tr {
+.developerPageContainer .hud-corner.tr {
 
     top: 24px;
     right: 24px;
@@ -774,7 +789,7 @@
 
 }
 
-.dev-page-root .hud-corner.bl {
+.developerPageContainer .hud-corner.bl {
 
     bottom: 24px;
     left: 24px;
@@ -783,7 +798,7 @@
 
 }
 
-.dev-page-root .hud-corner.br {
+.developerPageContainer .hud-corner.br {
 
     bottom: 24px;
     right: 24px;
@@ -792,7 +807,7 @@
 
 }
 
-.dev-page-root .hero {
+.developerPageContainer .hero {
 
     position: relative;
     min-height: 100vh;
@@ -803,7 +818,7 @@
 
 }
 
-.dev-page-root .hero-frame {
+.developerPageContainer .hero-frame {
 
     position: absolute;
     inset: 20px;
@@ -811,7 +826,7 @@
 
 }
 
-.dev-page-root .hero-grid {
+.developerPageContainer .hero-grid {
 
     display: grid;
     grid-template-columns: 1.3fr 1fr;
@@ -823,7 +838,7 @@
 
 }
 
-.dev-page-root .hero-tag {
+.developerPageContainer .hero-tag {
 
     display: inline-flex;
     align-items: center;
@@ -840,7 +855,7 @@
 
 }
 
-.dev-page-root .pulse-dot {
+.developerPageContainer .pulse-dot {
 
     width: 8px;
     height: 8px;
@@ -851,7 +866,7 @@
 
 }
 
-.dev-page-root .hero-title {
+.developerPageContainer .hero-title {
 
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
@@ -862,7 +877,7 @@
 
 }
 
-.dev-page-root .hero-title .line {
+.developerPageContainer .hero-title .line {
 
     display: block;
     opacity: 0;
@@ -871,25 +886,25 @@
 
 }
 
-.dev-page-root .hero-title .line:nth-child(1) {
+.developerPageContainer .hero-title .line:nth-child(1) {
 
     animation-delay: .1s
 
 }
 
-.dev-page-root .hero-title .line:nth-child(2) {
+.developerPageContainer .hero-title .line:nth-child(2) {
 
     animation-delay: .25s
 
 }
 
-.dev-page-root .hero-title .line:nth-child(3) {
+.developerPageContainer .hero-title .line:nth-child(3) {
 
     animation-delay: .4s
 
 }
 
-.dev-page-root .hero-title .line:nth-child(4) {
+.developerPageContainer .hero-title .line:nth-child(4) {
 
     animation-delay: .55s
 
@@ -904,7 +919,7 @@
 
 }
 
-.dev-page-root .hero-rotator {
+.developerPageContainer .hero-rotator {
 
     display: flex;
     align-items: center;
@@ -918,14 +933,14 @@
 
 }
 
-.dev-page-root .rot-prefix {
+.developerPageContainer .rot-prefix {
 
     color: var(--purple);
     font-weight: 700
 
 }
 
-.dev-page-root .rot-stage {
+.developerPageContainer .rot-stage {
 
     position: relative;
     height: 30px;
@@ -934,7 +949,7 @@
 
 }
 
-.dev-page-root .rot-item {
+.developerPageContainer .rot-item {
 
     position: absolute;
     inset: 0;
@@ -947,21 +962,21 @@
 
 }
 
-.dev-page-root .rot-item.active {
+.developerPageContainer .rot-item.active {
 
     opacity: 1;
     transform: translateY(0)
 
 }
 
-.dev-page-root .rot-item.exit {
+.developerPageContainer .rot-item.exit {
 
     opacity: 0;
     transform: translateY(-100%)
 
 }
 
-.dev-page-root .rot-cursor {
+.developerPageContainer .rot-cursor {
 
     color: var(--cyan);
     animation: blink 1s infinite
@@ -976,7 +991,7 @@
 
 }
 
-.dev-page-root .hero-sub {
+.developerPageContainer .hero-sub {
 
     max-width: 560px;
     color: var(--muted);
@@ -986,13 +1001,13 @@
 
 }
 
-.dev-page-root .hero-sub b {
+.developerPageContainer .hero-sub b {
 
     color: var(--text)
 
 }
 
-.dev-page-root .hero-actions {
+.developerPageContainer .hero-actions {
 
     display: flex;
     flex-wrap: wrap;
@@ -1001,7 +1016,7 @@
 
 }
 
-.dev-page-root .btn {
+.developerPageContainer .btn {
 
     position: relative;
     display: inline-flex;
@@ -1022,7 +1037,7 @@
 
 }
 
-.dev-page-root .btn:hover {
+.developerPageContainer .btn:hover {
 
     background: rgba(0, 240, 255, .15);
     transform: translateY(-2px);
@@ -1030,7 +1045,7 @@
 
 }
 
-.dev-page-root .btn-primary {
+.developerPageContainer .btn-primary {
 
     border-color: transparent;
     background: var(--grad-2);
@@ -1038,26 +1053,26 @@
 
 }
 
-.dev-page-root .btn-primary:hover {
+.developerPageContainer .btn-primary:hover {
 
     box-shadow: 0 0 40px rgba(0, 240, 255, .7), 0 0 60px rgba(168, 85, 247, .5)
 
 }
 
-.dev-page-root .btn-ghost {
+.developerPageContainer .btn-ghost {
 
     border-color: var(--line);
     color: var(--text)
 
 }
 
-.dev-page-root .btn-ghost:hover {
+.developerPageContainer .btn-ghost:hover {
 
     border-color: var(--cyan)
 
 }
 
-.dev-page-root .btn-glow {
+.developerPageContainer .btn-glow {
 
     position: absolute;
     inset: 0;
@@ -1068,25 +1083,25 @@
 
 }
 
-.dev-page-root .btn:hover .btn-glow {
+.developerPageContainer .btn:hover .btn-glow {
 
     opacity: 1
 
 }
 
-.dev-page-root .btn-arrow {
+.developerPageContainer .btn-arrow {
 
     transition: .3s
 
 }
 
-.dev-page-root .btn:hover .btn-arrow {
+.developerPageContainer .btn:hover .btn-arrow {
 
     transform: translateX(4px)
 
 }
 
-.dev-page-root .hero-meta {
+.developerPageContainer .hero-meta {
 
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1097,7 +1112,7 @@
 
 }
 
-.dev-page-root .hero-meta>div {
+.developerPageContainer .hero-meta>div {
 
     display: flex;
     flex-direction: column;
@@ -1105,7 +1120,7 @@
 
 }
 
-.dev-page-root .m-num {
+.developerPageContainer .m-num {
 
     font-family: 'Orbitron', sans-serif;
     font-size: 30px;
@@ -1117,7 +1132,7 @@
 
 }
 
-.dev-page-root .m-lbl {
+.developerPageContainer .m-lbl {
 
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -1127,7 +1142,7 @@
 
 }
 
-.dev-page-root .holo-frame {
+.developerPageContainer .holo-frame {
 
     position: relative;
     aspect-ratio: 1;
@@ -1137,14 +1152,14 @@
 
 }
 
-.dev-page-root .holo-rings {
+.developerPageContainer .holo-rings {
 
     position: absolute;
     inset: 0
 
 }
 
-.dev-page-root .ring {
+.developerPageContainer .ring {
 
     position: absolute;
     border: 1px solid;
@@ -1152,7 +1167,7 @@
 
 }
 
-.dev-page-root .r1 {
+.developerPageContainer .r1 {
 
     inset: 0;
     border-color: rgba(0, 240, 255, .3);
@@ -1161,7 +1176,7 @@
 
 }
 
-.dev-page-root .r2 {
+.developerPageContainer .r2 {
 
     inset: 30px;
     border-color: rgba(168, 85, 247, .3);
@@ -1170,7 +1185,7 @@
 
 }
 
-.dev-page-root .r3 {
+.developerPageContainer .r3 {
 
     inset: 60px;
     border-color: rgba(255, 46, 166, .2);
@@ -1179,7 +1194,7 @@
 
 }
 
-.dev-page-root .holo-core {
+.developerPageContainer .holo-core {
 
     position: absolute;
     inset: 90px;
@@ -1196,7 +1211,7 @@
 
 }
 
-.dev-page-root .holo-avatar {
+.developerPageContainer .holo-avatar {
 
     position: relative;
     width: 100px;
@@ -1215,14 +1230,14 @@
 
 }
 
-.dev-page-root .avatar-initials {
+.developerPageContainer .avatar-initials {
 
     position: relative;
     z-index: 2
 
 }
 
-.dev-page-root .avatar-scan {
+.developerPageContainer .avatar-scan {
 
     position: absolute;
     left: 0;
@@ -1245,7 +1260,7 @@
 
 }
 
-.dev-page-root .holo-id {
+.developerPageContainer .holo-id {
 
     width: 100%;
     font-family: 'JetBrains Mono', monospace;
@@ -1254,7 +1269,7 @@
 
 }
 
-.dev-page-root .id-row {
+.developerPageContainer .id-row {
 
     display: flex;
     justify-content: space-between;
@@ -1263,25 +1278,25 @@
 
 }
 
-.dev-page-root .id-row span {
+.developerPageContainer .id-row span {
 
     color: var(--muted)
 
 }
 
-.dev-page-root .id-row b {
+.developerPageContainer .id-row b {
 
     color: var(--cyan)
 
 }
 
-.dev-page-root .id-row b.ok {
+.developerPageContainer .id-row b.ok {
 
     color: #00ff88
 
 }
 
-.dev-page-root .holo-particles span {
+.developerPageContainer .holo-particles span {
 
     position: absolute;
     width: 4px;
@@ -1292,7 +1307,7 @@
 
 }
 
-.dev-page-root .holo-particles span:nth-child(1) {
+.developerPageContainer .holo-particles span:nth-child(1) {
 
     top: 10%;
     left: 50%;
@@ -1300,7 +1315,7 @@
 
 }
 
-.dev-page-root .holo-particles span:nth-child(2) {
+.developerPageContainer .holo-particles span:nth-child(2) {
 
     top: 50%;
     left: 5%;
@@ -1308,7 +1323,7 @@
 
 }
 
-.dev-page-root .holo-particles span:nth-child(3) {
+.developerPageContainer .holo-particles span:nth-child(3) {
 
     top: 90%;
     left: 50%;
@@ -1316,7 +1331,7 @@
 
 }
 
-.dev-page-root .holo-particles span:nth-child(4) {
+.developerPageContainer .holo-particles span:nth-child(4) {
 
     top: 50%;
     left: 95%;
@@ -1324,7 +1339,7 @@
 
 }
 
-.dev-page-root .holo-particles span:nth-child(5) {
+.developerPageContainer .holo-particles span:nth-child(5) {
 
     top: 25%;
     left: 80%;
@@ -1334,7 +1349,7 @@
 
 }
 
-.dev-page-root .holo-particles span:nth-child(6) {
+.developerPageContainer .holo-particles span:nth-child(6) {
 
     top: 75%;
     left: 20%;
@@ -1360,7 +1375,7 @@
 
 }
 
-.dev-page-root .scroll-indicator {
+.developerPageContainer .scroll-indicator {
 
     position: absolute;
     bottom: 30px;
@@ -1377,7 +1392,7 @@
 
 }
 
-.dev-page-root .scroll-line {
+.developerPageContainer .scroll-line {
 
     width: 1px;
     height: 50px;
@@ -1387,7 +1402,7 @@
 
 }
 
-.dev-page-root .scroll-dot {
+.developerPageContainer .scroll-dot {
 
     position: absolute;
     top: 0;
@@ -1412,7 +1427,7 @@
 
 }
 
-.dev-page-root .about-grid {
+.developerPageContainer .about-grid {
 
     display: grid;
     grid-template-columns: 1.4fr 1fr;
@@ -1420,13 +1435,13 @@
 
 }
 
-.dev-page-root .terminal {
+.developerPageContainer .terminal {
 
     padding: 0
 
 }
 
-.dev-page-root .terminal-.dev-page-root {
+.developerPageContainer .terminal-body {
 
     padding: 24px;
     font-family: 'JetBrains Mono', monospace;
@@ -1436,19 +1451,19 @@
 
 }
 
-.dev-page-root .terminal-body p {
+.developerPageContainer .terminal-body p {
 
     margin-bottom: 10px
 
 }
 
-.dev-page-root .terminal-body .prompt {
+.developerPageContainer .terminal-body .prompt {
 
     color: var(--cyan)
 
 }
 
-.dev-page-root .terminal-body .t-out {
+.developerPageContainer .terminal-body .t-out {
 
     color: var(--muted);
     padding-left: 16px;
@@ -1457,14 +1472,14 @@
 
 }
 
-.dev-page-root .terminal-body b {
+.developerPageContainer .terminal-body b {
 
     color: #fff;
     font-weight: 600
 
 }
 
-.dev-page-root .about-stats {
+.developerPageContainer .about-stats {
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1472,7 +1487,7 @@
 
 }
 
-.dev-page-root .stat-card {
+.developerPageContainer .stat-card {
 
     padding: 24px;
     text-align: center;
@@ -1480,14 +1495,14 @@
 
 }
 
-.dev-page-root .stat-card:hover {
+.developerPageContainer .stat-card:hover {
 
     transform: translateY(-4px);
     box-shadow: var(--shadow-cyan)
 
 }
 
-.dev-page-root .stat-num {
+.developerPageContainer .stat-num {
 
     font-family: 'Orbitron', sans-serif;
     font-size: 54px;
@@ -1500,7 +1515,7 @@
 
 }
 
-.dev-page-root .stat-label {
+.developerPageContainer .stat-label {
 
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -1511,7 +1526,7 @@
 
 }
 
-.dev-page-root .stat-bar {
+.developerPageContainer .stat-bar {
 
     height: 3px;
     background: rgba(255, 255, 255, .06);
@@ -1520,7 +1535,7 @@
 
 }
 
-.dev-page-root .stat-bar i {
+.developerPageContainer .stat-bar i {
 
     display: block;
     height: 100%;
@@ -1530,7 +1545,7 @@
 
 }
 
-.dev-page-root .skill-grid {
+.developerPageContainer .skill-grid {
 
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -1538,7 +1553,7 @@
 
 }
 
-.dev-page-root .skill-card {
+.developerPageContainer .skill-card {
 
     position: relative;
     padding: 28px 22px;
@@ -1552,7 +1567,7 @@
 
 }
 
-.dev-page-root .skill-card:hover {
+.developerPageContainer .skill-card:hover {
 
     transform: translateY(-6px);
     border-color: var(--cyan);
@@ -1560,7 +1575,7 @@
 
 }
 
-.dev-page-root .sc-glow {
+.developerPageContainer .sc-glow {
 
     position: absolute;
     width: 200px;
@@ -1575,13 +1590,13 @@
 
 }
 
-.dev-page-root .skill-card:hover .sc-glow {
+.developerPageContainer .skill-card:hover .sc-glow {
 
     opacity: 1
 
 }
 
-.dev-page-root .sc-icon {
+.developerPageContainer .sc-icon {
 
     font-family: 'Orbitron', sans-serif;
     font-size: 34px;
@@ -1594,7 +1609,7 @@
 
 }
 
-.dev-page-root .skill-card h3 {
+.developerPageContainer .skill-card h3 {
 
     font-family: 'Orbitron', sans-serif;
     font-size: 18px;
@@ -1604,7 +1619,7 @@
 
 }
 
-.dev-page-root .skill-card span {
+.developerPageContainer .skill-card span {
 
     display: block;
     font-family: 'JetBrains Mono', monospace;
@@ -1615,7 +1630,7 @@
 
 }
 
-.dev-page-root .sc-bar {
+.developerPageContainer .sc-bar {
 
     height: 3px;
     background: rgba(255, 255, 255, .06);
@@ -1624,7 +1639,7 @@
 
 }
 
-.dev-page-root .sc-bar i {
+.developerPageContainer .sc-bar i {
 
     display: block;
     height: 100%;
@@ -1635,13 +1650,13 @@
 
 }
 
-.dev-page-root .skill-card.in-view .sc-bar i {
+.developerPageContainer .skill-card.in-view .sc-bar i {
 
     width: var(--p)
 
 }
 
-.dev-page-root .featured-card {
+.developerPageContainer .featured-card {
 
     position: relative;
     display: grid;
@@ -1656,7 +1671,7 @@
 
 }
 
-.dev-page-root .fc-glow {
+.developerPageContainer .fc-glow {
 
     position: absolute;
     inset: -2px;
@@ -1686,7 +1701,7 @@
 
 }
 
-.dev-page-root .fc-grid {
+.developerPageContainer .fc-grid {
 
     position: absolute;
     inset: 0;
@@ -1698,7 +1713,7 @@
 
 }
 
-.dev-page-root .fc-tag {
+.developerPageContainer .fc-tag {
 
     display: inline-block;
     padding: 6px 14px;
@@ -1713,7 +1728,7 @@
 
 }
 
-.dev-page-root .fc-title {
+.developerPageContainer .fc-title {
 
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(40px, 5vw, 68px);
@@ -1724,7 +1739,7 @@
 
 }
 
-.dev-page-root .fc-desc {
+.developerPageContainer .fc-desc {
 
     color: var(--muted);
     font-size: 16px;
@@ -1733,13 +1748,13 @@
 
 }
 
-.dev-page-root .fc-desc b {
+.developerPageContainer .fc-desc b {
 
     color: var(--cyan)
 
 }
 
-.dev-page-root .fc-features {
+.developerPageContainer .fc-features {
 
     display: grid;
     gap: 10px;
@@ -1747,7 +1762,7 @@
 
 }
 
-.dev-page-root .fc-features div {
+.developerPageContainer .fc-features div {
 
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
@@ -1758,13 +1773,13 @@
 
 }
 
-.dev-page-root .fc-features span {
+.developerPageContainer .fc-features span {
 
     color: var(--cyan)
 
 }
 
-.dev-page-root .fc-stack {
+.developerPageContainer .fc-stack {
 
     display: flex;
     flex-wrap: wrap;
@@ -1773,7 +1788,7 @@
 
 }
 
-.dev-page-root .fc-stack span {
+.developerPageContainer .fc-stack span {
 
     padding: 5px 12px;
     background: rgba(168, 85, 247, .1);
@@ -1786,7 +1801,7 @@
 
 }
 
-.dev-page-root .fc-actions {
+.developerPageContainer .fc-actions {
 
     display: flex;
     flex-wrap: wrap;
@@ -1794,7 +1809,7 @@
 
 }
 
-.dev-page-root .preview-window {
+.developerPageContainer .preview-window {
 
     position: relative;
     background: #02020a;
@@ -1805,7 +1820,7 @@
 
 }
 
-.dev-page-root .pw-bar {
+.developerPageContainer .pw-bar {
 
     display: flex;
     align-items: center;
@@ -1818,7 +1833,7 @@
 
 }
 
-.dev-page-root .pw-url {
+.developerPageContainer .pw-url {
 
     flex: 1;
     color: var(--muted);
@@ -1826,13 +1841,13 @@
 
 }
 
-.dev-page-root .pw-status {
+.developerPageContainer .pw-status {
 
     color: #00ff88
 
 }
 
-.dev-page-root .pw-screen {
+.developerPageContainer .pw-screen {
 
     padding: 20px;
     font-family: 'JetBrains Mono', monospace;
@@ -1843,7 +1858,7 @@
 
 }
 
-.dev-page-root .pw-row {
+.developerPageContainer .pw-row {
 
     display: flex;
     justify-content: space-between;
@@ -1855,7 +1870,7 @@
 
 }
 
-.dev-page-root .pw-msg {
+.developerPageContainer .pw-msg {
 
     padding: 10px 14px;
     border-radius: 8px;
@@ -1863,7 +1878,7 @@
 
 }
 
-.dev-page-root .pw-msg.user {
+.developerPageContainer .pw-msg.user {
 
     background: rgba(0, 240, 255, .06);
     border-left: 2px solid var(--cyan);
@@ -1871,13 +1886,13 @@
 
 }
 
-.dev-page-root .pw-msg.user b {
+.developerPageContainer .pw-msg.user b {
 
     color: var(--cyan)
 
 }
 
-.dev-page-root .pw-msg.ai {
+.developerPageContainer .pw-msg.ai {
 
     background: rgba(168, 85, 247, .06);
     border-left: 2px solid var(--purple);
@@ -1885,13 +1900,13 @@
 
 }
 
-.dev-page-root .pw-msg.ai b {
+.developerPageContainer .pw-msg.ai b {
 
     color: var(--purple)
 
 }
 
-.dev-page-root .pw-bars {
+.developerPageContainer .pw-bars {
 
     display: grid;
     gap: 8px;
@@ -1901,7 +1916,7 @@
 
 }
 
-.dev-page-root .pw-bar-row {
+.developerPageContainer .pw-bar-row {
 
     display: grid;
     grid-template-columns: 80px 1fr 50px;
@@ -1912,7 +1927,7 @@
 
 }
 
-.dev-page-root .pw-bar-row div {
+.developerPageContainer .pw-bar-row div {
 
     height: 4px;
     background: rgba(255, 255, 255, .06);
@@ -1921,7 +1936,7 @@
 
 }
 
-.dev-page-root .pw-bar-row div i {
+.developerPageContainer .pw-bar-row div i {
 
     display: block;
     height: 100%;
@@ -1931,14 +1946,14 @@
 
 }
 
-.dev-page-root .pw-bar-row b {
+.developerPageContainer .pw-bar-row b {
 
     color: var(--cyan);
     text-align: right
 
 }
 
-.dev-page-root .pw-typing {
+.developerPageContainer .pw-typing {
 
     display: flex;
     gap: 4px;
@@ -1946,7 +1961,7 @@
 
 }
 
-.dev-page-root .pw-typing span {
+.developerPageContainer .pw-typing span {
 
     width: 6px;
     height: 6px;
@@ -1956,13 +1971,13 @@
 
 }
 
-.dev-page-root .pw-typing span:nth-child(2) {
+.developerPageContainer .pw-typing span:nth-child(2) {
 
     animation-delay: .2s
 
 }
 
-.dev-page-root .pw-typing span:nth-child(3) {
+.developerPageContainer .pw-typing span:nth-child(3) {
 
     animation-delay: .4s
 
@@ -1985,7 +2000,7 @@
 
 }
 
-.dev-page-root .timeline {
+.developerPageContainer .timeline {
 
     position: relative;
     max-width: 1100px;
@@ -1993,7 +2008,7 @@
 
 }
 
-.dev-page-root .t-line {
+.developerPageContainer .t-line {
 
     position: absolute;
     top: 0;
@@ -2006,7 +2021,7 @@
 
 }
 
-.dev-page-root .t-item {
+.developerPageContainer .t-item {
 
     position: relative;
     width: 50%;
@@ -2015,14 +2030,14 @@
 
 }
 
-.dev-page-root .t-item.right {
+.developerPageContainer .t-item.right {
 
     margin-left: 50%;
     padding: 30px 0 30px 50px
 
 }
 
-.dev-page-root .t-node {
+.developerPageContainer .t-node {
 
     position: absolute;
     top: 50px;
@@ -2037,14 +2052,14 @@
 
 }
 
-.dev-page-root .t-item.right .t-node {
+.developerPageContainer .t-item.right .t-node {
 
     left: -10px;
     right: auto
 
 }
 
-.dev-page-root .t-node::after {
+.developerPageContainer .t-node::after {
 
     content: '';
     position: absolute;
@@ -2055,21 +2070,21 @@
 
 }
 
-.dev-page-root .t-card {
+.developerPageContainer .t-card {
 
     padding: 24px 26px;
     transition: .3s
 
 }
 
-.dev-page-root .t-card:hover {
+.developerPageContainer .t-card:hover {
 
     transform: translateY(-4px);
     box-shadow: var(--shadow-cyan)
 
 }
 
-.dev-page-root .t-meta {
+.developerPageContainer .t-meta {
 
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -2079,7 +2094,7 @@
 
 }
 
-.dev-page-root .t-card h3 {
+.developerPageContainer .t-card h3 {
 
     font-family: 'Orbitron', sans-serif;
     font-size: 22px;
@@ -2088,7 +2103,7 @@
 
 }
 
-.dev-page-root .t-card p {
+.developerPageContainer .t-card p {
 
     color: var(--muted);
     line-height: 1.7;
@@ -2096,7 +2111,7 @@
 
 }
 
-.dev-page-root .contact-grid {
+.developerPageContainer .contact-grid {
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -2104,13 +2119,13 @@
 
 }
 
-.dev-page-root .contact-.dev-page-root {
+.developerPageContainer .contact-body {
 
     padding: 30px
 
 }
 
-.dev-page-root .contact-body h3 {
+.developerPageContainer .contact-body h3 {
 
     font-family: 'Orbitron', sans-serif;
     font-size: 30px;
@@ -2120,7 +2135,7 @@
 
 }
 
-.dev-page-root .contact-body p {
+.developerPageContainer .contact-body p {
 
     color: var(--muted);
     font-size: 15px;
@@ -2129,7 +2144,7 @@
 
 }
 
-.dev-page-root .socials {
+.developerPageContainer .socials {
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -2137,7 +2152,7 @@
 
 }
 
-.dev-page-root .soc {
+.developerPageContainer .soc {
 
     display: flex;
     align-items: center;
@@ -2151,7 +2166,7 @@
 
 }
 
-.dev-page-root .soc:hover {
+.developerPageContainer .soc:hover {
 
     border-color: var(--cyan);
     background: rgba(0, 240, 255, .08);
@@ -2160,7 +2175,7 @@
 
 }
 
-.dev-page-root .soc span {
+.developerPageContainer .soc span {
 
     width: 36px;
     height: 36px;
@@ -2175,14 +2190,14 @@
 
 }
 
-.dev-page-root .soc b {
+.developerPageContainer .soc b {
 
     font-weight: 600;
     letter-spacing: 1px
 
 }
 
-.dev-page-root .form-.dev-page-root {
+.developerPageContainer .form-body {
 
     padding: 30px;
     display: grid;
@@ -2190,7 +2205,7 @@
 
 }
 
-.dev-page-root .field {
+.developerPageContainer .field {
 
     display: flex;
     flex-direction: column;
@@ -2198,7 +2213,7 @@
 
 }
 
-.dev-page-root .field label {
+.developerPageContainer .field label {
 
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -2207,7 +2222,7 @@
 
 }
 
-.dev-page-root .field input, .dev-page-root .field textarea {
+.developerPageContainer .field input, .developerPageContainer .field textarea {
 
     padding: 12px 14px;
     background: rgba(0, 0, 0, .3);
@@ -2221,7 +2236,7 @@
 
 }
 
-.dev-page-root .field input:focus, .dev-page-root .field textarea:focus {
+.developerPageContainer .field input:focus, .developerPageContainer .field textarea:focus {
 
     outline: none;
     border-color: var(--cyan);
@@ -2229,13 +2244,13 @@
 
 }
 
-.dev-page-root .field input::placeholder, .dev-page-root .field textarea::placeholder {
+.developerPageContainer .field input::placeholder, .developerPageContainer .field textarea::placeholder {
 
     color: var(--muted)
 
 }
 
-.dev-page-root .btn-send {
+.developerPageContainer .btn-send {
 
     width: 100%;
     justify-content: center;
@@ -2243,7 +2258,7 @@
 
 }
 
-.dev-page-root .footer {
+.developerPageContainer .footer {
 
     position: relative;
     border-top: 1px solid var(--line);
@@ -2253,7 +2268,7 @@
 
 }
 
-.dev-page-root .footer-grid {
+.developerPageContainer .footer-grid {
 
     max-width: 1500px;
     margin: 0 auto;
@@ -2264,7 +2279,7 @@
 
 }
 
-.dev-page-root .f-logo {
+.developerPageContainer .f-logo {
 
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
@@ -2274,7 +2289,7 @@
 
 }
 
-.dev-page-root .f-logo b {
+.developerPageContainer .f-logo b {
 
     background: var(--grad);
     -webkit-background-clip: text;
@@ -2283,7 +2298,7 @@
 
 }
 
-.dev-page-root .footer-grid p {
+.developerPageContainer .footer-grid p {
 
     color: var(--muted);
     font-size: 14px;
@@ -2292,7 +2307,7 @@
 
 }
 
-.dev-page-root .footer-grid h4 {
+.developerPageContainer .footer-grid h4 {
 
     font-family: 'Orbitron', sans-serif;
     font-size: 13px;
@@ -2302,7 +2317,7 @@
 
 }
 
-.dev-page-root .footer-grid a {
+.developerPageContainer .footer-grid a {
 
     display: block;
     color: var(--muted);
@@ -2312,14 +2327,14 @@
 
 }
 
-.dev-page-root .footer-grid a:hover {
+.developerPageContainer .footer-grid a:hover {
 
     color: var(--cyan);
     transform: translateX(4px)
 
 }
 
-.dev-page-root .footer-bar {
+.developerPageContainer .footer-bar {
 
     max-width: 1500px;
     margin: 0 auto;
@@ -2337,20 +2352,20 @@
 }
 
 @media (max-width:1024px) {
-.dev-page-root .hero-grid {
+.developerPageContainer .hero-grid {
 
         grid-template-columns: 1fr;
         gap: 50px
     
 }
 
-.dev-page-root .holo-frame {
+.developerPageContainer .holo-frame {
 
         margin: 0 auto
     
 }
 
-.dev-page-root .about-grid, .dev-page-root .featured-card, .dev-page-root .contact-grid {
+.developerPageContainer .about-grid, .developerPageContainer .featured-card, .developerPageContainer .contact-grid {
 
         grid-template-columns: 1fr;
         padding: 30px;
@@ -2358,31 +2373,31 @@
     
 }
 
-.dev-page-root .about-stats {
+.developerPageContainer .about-stats {
 
         grid-template-columns: 1fr 1fr
     
 }
 
-.dev-page-root .nav-links {
+.developerPageContainer .nav-links {
 
         display: none
     
 }
 
-.dev-page-root .nav-burger {
+.developerPageContainer .nav-burger {
 
         display: flex
     
 }
 
-.dev-page-root .timeline .t-line {
+.developerPageContainer .timeline .t-line {
 
         left: 20px
     
 }
 
-.dev-page-root .t-item, .dev-page-root .t-item.right {
+.developerPageContainer .t-item, .developerPageContainer .t-item.right {
 
         width: 100%;
         margin-left: 0;
@@ -2390,7 +2405,7 @@
     
 }
 
-.dev-page-root .t-node, .dev-page-root .t-item.right .t-node {
+.developerPageContainer .t-node, .developerPageContainer .t-item.right .t-node {
 
         left: 11px;
         right: auto
@@ -2402,63 +2417,63 @@
 }
 
 @media (max-width:640px) {
-.dev-page-root {
+.developerPageContainer {
 
         cursor: auto
     
 }
 
-.dev-page-root .cursor-dot, .dev-page-root .cursor-ring {
+.developerPageContainer .cursor-dot, .developerPageContainer .cursor-ring {
 
         display: none
     
 }
 
-.dev-page-root .nav, .dev-page-root .section, .dev-page-root .hero {
+.developerPageContainer .nav, .developerPageContainer .section, .developerPageContainer .hero {
 
         padding-left: 20px;
         padding-right: 20px
     
 }
 
-.dev-page-root .hero {
+.developerPageContainer .hero {
 
         padding-top: 100px
     
 }
 
-.dev-page-root .hero-meta {
+.developerPageContainer .hero-meta {
 
         grid-template-columns: 1fr 1fr;
         gap: 18px
     
 }
 
-.dev-page-root .about-stats, .dev-page-root .socials {
+.developerPageContainer .about-stats, .developerPageContainer .socials {
 
         grid-template-columns: 1fr
     
 }
 
-.dev-page-root .footer-grid {
+.developerPageContainer .footer-grid {
 
         grid-template-columns: 1fr
     
 }
 
-.dev-page-root .featured-card {
+.developerPageContainer .featured-card {
 
         padding: 24px
     
 }
 
-.dev-page-root .nav-cta {
+.developerPageContainer .nav-cta {
 
         display: none
     
 }
 
-.dev-page-root .hud-corner {
+.developerPageContainer .hud-corner {
 
         display: none
     
@@ -2468,7 +2483,7 @@
 
 }
 
-.dev-page-root .field textarea {
+.developerPageContainer .field textarea {
 
     width: 100%;
     background: rgba(255,255,255,0.03);
@@ -2481,7 +2496,7 @@
 
 }
 
-.dev-page-root .avatar-img {
+.developerPageContainer .avatar-img {
 
     width: 100%;
     height: 100%;
@@ -2492,7 +2507,7 @@
 }
 
 @media (max-width:640px) {
-.dev-page-root .holo-avatar {
+.developerPageContainer .holo-avatar {
 
         width: 80px;
         height: 80px;
@@ -2504,7 +2519,7 @@
 
 }
 
-.dev-page-root .back-to-top {
+.developerPageContainer .back-to-top {
 
     position: fixed;
     bottom: 30px;
@@ -2531,7 +2546,7 @@
 
 }
 
-.dev-page-root .back-to-top.visible {
+.developerPageContainer .back-to-top.visible {
 
     opacity: 1;
     pointer-events: all;
@@ -2539,13 +2554,13 @@
 
 }
 
-.dev-page-root .back-to-top:not(.visible) {
+.developerPageContainer .back-to-top:not(.visible) {
 
     transform: translateY(20px);
 
 }
 
-.dev-page-root .back-to-top .btt-glow {
+.developerPageContainer .back-to-top .btt-glow {
 
     position: absolute;
     top: 0;
@@ -2559,7 +2574,7 @@
 
 }
 
-.dev-page-root .back-to-top:hover {
+.developerPageContainer .back-to-top:hover {
 
     border-color: #a855f7;
     color: #a855f7;
@@ -2567,14 +2582,14 @@
 
 }
 
-.dev-page-root .back-to-top:hover .btt-glow {
+.developerPageContainer .back-to-top:hover .btt-glow {
 
     opacity: 1;
     box-shadow: inset 0 0 10px rgba(168, 85, 247, 0.4);
 
 }
 
-.dev-page-root .back-to-top .btt-text {
+.developerPageContainer .back-to-top .btt-text {
 
     font-size: 16px;
     line-height: 1;
@@ -2582,7 +2597,7 @@
 
 }
 
-.dev-page-root .back-to-top .btt-sub {
+.developerPageContainer .back-to-top .btt-sub {
 
     font-size: 8px;
     letter-spacing: 1px;
@@ -2591,7 +2606,7 @@
 }
 
 @media (max-width: 640px) {
-.dev-page-root .back-to-top {
+.developerPageContainer .back-to-top {
 
         bottom: 20px;
         right: 20px;
@@ -2600,7 +2615,7 @@
     
 }
 
-.dev-page-root .back-to-top .btt-sub {
+.developerPageContainer .back-to-top .btt-sub {
 
         display: none;
     

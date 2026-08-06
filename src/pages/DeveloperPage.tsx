@@ -68,7 +68,7 @@ export function DeveloperPage() {
     animateCursor();
 
     const hoverElements = document.querySelectorAll(
-      '.dev-page-root a, .dev-page-root button, .dev-page-root .skill-card, .dev-page-root .soc, .dev-page-root .stat-card, .dev-page-root .t-card, .dev-page-root input, .dev-page-root textarea'
+      '.developerPageContainer a, .developerPageContainer button, .developerPageContainer .skill-card, .developerPageContainer .soc, .developerPageContainer .stat-card, .developerPageContainer .t-card, .developerPageContainer input, .developerPageContainer textarea'
     );
     const addHover = () => cRing && cRing.classList.add('hover');
     const removeHover = () => cRing && cRing.classList.remove('hover');
@@ -88,11 +88,11 @@ export function DeveloperPage() {
 
     // 5. Scroll Nav & Active Links
     const nav = document.getElementById('nav');
-    const navLinks = document.querySelectorAll('.nav-links a');
+    const navLinks = document.querySelectorAll('.developerPageContainer .nav-links a');
     const handleScroll = () => {
       if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
       let cur = '';
-      document.querySelectorAll('.dev-page-root section[id]').forEach(s => {
+      document.querySelectorAll('.developerPageContainer section[id]').forEach(s => {
         const top = (s as HTMLElement).offsetTop - 120;
         if (window.scrollY >= top) cur = s.id;
       });
@@ -208,7 +208,7 @@ export function DeveloperPage() {
       { threshold: 0.25 }
     );
     document
-      .querySelectorAll('.dev-page-root .stat-card, .dev-page-root .skill-card, .dev-page-root .t-card, .dev-page-root .panel')
+      .querySelectorAll('.developerPageContainer .stat-card, .developerPageContainer .skill-card, .developerPageContainer .t-card, .developerPageContainer .panel')
       .forEach(el => observer.observe(el));
 
     // 11. Particles Canvas
@@ -305,7 +305,7 @@ export function DeveloperPage() {
     }
 
     // 12. Parallax Orbs
-    const orbs = document.querySelectorAll('.dev-page-root .orb');
+    const orbs = document.querySelectorAll('.developerPageContainer .orb');
     const handleOrbMouse = (e: MouseEvent) => {
       const x = e.clientX / window.innerWidth - 0.5;
       const y = e.clientY / window.innerHeight - 0.5;
@@ -318,7 +318,7 @@ export function DeveloperPage() {
 
     // 13. Mobile Burger Toggle
     const burger = document.getElementById('navBurger');
-    const navLinksList = document.querySelector('.dev-page-root .nav-links') as HTMLElement | null;
+    const navLinksList = document.querySelector('.developerPageContainer .nav-links') as HTMLElement | null;
     if (burger && navLinksList) {
       const toggleBurger = () => {
         const open = navLinksList.style.display === 'flex';
@@ -366,7 +366,7 @@ export function DeveloperPage() {
       { threshold: 0.15 }
     );
     document
-      .querySelectorAll('.dev-page-root .section .panel, .dev-page-root .section-head, .dev-page-root .featured-card')
+      .querySelectorAll('.developerPageContainer .section .panel, .developerPageContainer .section-head, .developerPageContainer .featured-card')
       .forEach(el => {
         (el as HTMLElement).style.opacity = '0';
         (el as HTMLElement).style.transform = 'translateY(40px)';
@@ -393,7 +393,7 @@ export function DeveloperPage() {
   ]);
 
   return (
-    <div className="dev-page-root">
+    <div className="developerPageContainer">
       <SEO
         title="Shaikh Ammar — CEO & Founder of TechyBoy | TECHYSENDER Developer"
         description="Meet Shaikh Ammar Mohmmad Yasin — Full Stack Developer, AI Builder, and Founder of TechyBoy. Discover capabilities, portfolio, and founder path."
