@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { HomePage } from './pages/HomePage';
@@ -8,11 +8,14 @@ import { PrivacyPage } from './pages/PrivacyPage';
 import { DeveloperPage } from './pages/DeveloperPage';
 import { ShortLinkRedirector } from './pages/ShortLinkRedirector';
 
-export function App() {
+function AppContent() {
+  const location = useLocation();
+  const isDeveloper = location.pathname === '/developer';
+
   return (
-    <BrowserRouter>
-      <Navbar />
-      <main>
+    <>
+      {!isDeveloper && <Navbar />}
+      <main className={isDeveloper ? 'developer-main-wrapper' : 'page-content'}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/send" element={<SendPage />} />
@@ -22,7 +25,15 @@ export function App() {
           <Route path="/developer" element={<DeveloperPage />} />
         </Routes>
       </main>
-      <Footer />
+      {!isDeveloper && <Footer />}
+    </>
+  );
+}
+
+export function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }

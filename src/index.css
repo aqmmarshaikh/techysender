@@ -150,6 +150,14 @@ ul, ol {
   flex: 1;
 }
 
+.developer-main-wrapper {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: block;
+}
+
 /* ── Screen reader only ── */
 .sr-only {
   position: absolute;
