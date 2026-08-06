@@ -27,7 +27,7 @@ service cloud.firestore {
           && request.resource.data.status in ['EXPIRED', 'COMPLETED', 'CANCELLED'])
       );
       
-      // Secure delete: Only allow deletion if document has expired or is marked EXPIRED/COMPLETED/CANCELLED
+      // Secure delete: Only allow deletion if document has expired or is in terminal state (EXPIRED, COMPLETED, CANCELLED)
       allow delete: if resource.data.expiresAt <= request.time
         || resource.data.status in ['EXPIRED', 'COMPLETED', 'CANCELLED'];
     }
@@ -35,9 +35,9 @@ service cloud.firestore {
     // ── WebRTC Signaling Documents ──
     match /signaling/{sessionId} {
       allow read, create, update: if true;
-      // Secure delete: Allow session deletion when expired or disconnected/completed/failed/waiting
+      // Secure delete: Restrict deletion to terminal states (disconnected, completed, failed, cancelled, EXPIRED) or TTL expiration
       allow delete: if resource.data.expiresAt <= request.time
-        || resource.data.status in ['disconnected', 'completed', 'failed', 'waiting', 'connecting'];
+        || resource.data.status in ['disconnected', 'completed', 'failed', 'cancelled', 'EXPIRED'];
       
       match /callerCandidates/{candidateId} {
         allow read, create, delete: if true;
@@ -51,9 +51,8 @@ service cloud.firestore {
     // ── Short Links Documents ──
     match /shortLinks/{shortCode} {
       allow read, create, update: if true;
-      // Secure delete: Only allow deletion if document has expired or matches valid shortCode
-      allow delete: if resource.data.expiresAt <= request.time
-        || resource.data.shortCode == shortCode;
+      // Secure delete: Restrict deletion strictly to TTL expiration (resource.data.expiresAt <= request.time)
+      allow delete: if resource.data.expiresAt <= request.time;
     }
     
     // Deny all other collections
