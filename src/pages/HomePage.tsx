@@ -26,7 +26,7 @@ export function HomePage() {
       <SEO
         title="TECHYSENDER – Secure P2P File Sharing"
         description="Send files instantly with end-to-end encryption, WebRTC technology, QR sharing, and secure short links. No sign-up. No storage. Just private file transfers."
-        canonical="https://techysender.app/"
+        canonical="https://techysender.vercel.app/"
         structuredData={schemas}
       />
       <ParticleBackground />

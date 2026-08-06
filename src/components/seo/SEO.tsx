@@ -14,8 +14,8 @@ export interface SEOProps {
 const DEFAULT_TITLE = 'TECHYSENDER – Secure P2P File Sharing';
 const DEFAULT_DESCRIPTION =
   'Send files instantly with end-to-end encryption, WebRTC technology, QR sharing, and secure short links. No sign-up. No storage. Just private file transfers.';
-const DEFAULT_CANONICAL = 'https://techysender.app/';
-const DEFAULT_OG_IMAGE = 'https://techysender.app/og-image.png';
+const DEFAULT_CANONICAL = 'https://techysender.vercel.app/';
+const DEFAULT_OG_IMAGE = 'https://techysender.vercel.app/og-image.png';
 
 export function SEO({
   title = DEFAULT_TITLE,

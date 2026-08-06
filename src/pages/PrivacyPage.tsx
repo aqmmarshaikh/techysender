@@ -8,8 +8,8 @@ export function PrivacyPage() {
   const schemas = [
     getPrivacyPageSchema(),
     getBreadcrumbSchema([
-      { name: 'Home', url: 'https://techysender.app/' },
-      { name: 'Privacy Policy', url: 'https://techysender.app/privacy' },
+      { name: 'Home', url: 'https://techysender.vercel.app/' },
+      { name: 'Privacy Policy', url: 'https://techysender.vercel.app/privacy' },
     ]),
   ];
 
@@ -18,7 +18,7 @@ export function PrivacyPage() {
       <SEO
         title="Privacy Policy — TECHYSENDER Zero-Knowledge Encrypted Sharing"
         description="TECHYSENDER is built on a zero-knowledge architecture. Learn how your files are protected with AES-GCM encryption and direct WebRTC peer-to-peer transfers."
-        canonical="https://techysender.app/privacy"
+        canonical="https://techysender.vercel.app/privacy"
         structuredData={schemas}
       />
       <div className="container privacy-page">

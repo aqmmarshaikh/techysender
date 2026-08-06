@@ -80,8 +80,8 @@ export function ReceivePage() {
   };
 
   const breadcrumbs = getBreadcrumbSchema([
-    { name: 'Home', url: 'https://techysender.app/' },
-    { name: 'Receive Files', url: 'https://techysender.app/receive' },
+    { name: 'Home', url: 'https://techysender.vercel.app/' },
+    { name: 'Receive Files', url: 'https://techysender.vercel.app/receive' },
   ]);
 
   // ── Missing / Invalid Link State (Join Transfer UI) ──
@@ -91,7 +91,7 @@ export function ReceivePage() {
         <SEO
           title="Receive & Download Files — TECHYSENDER Encrypted Transfer"
           description="Connect to an active peer-to-peer file transfer session securely using your transfer link or key."
-          canonical="https://techysender.app/receive"
+          canonical="https://techysender.vercel.app/receive"
           structuredData={breadcrumbs}
         />
         <div className="container receive-page">

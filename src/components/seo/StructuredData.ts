@@ -3,8 +3,8 @@ export function getOrganizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'TECHYSENDER',
-    url: 'https://techysender.app',
-    logo: 'https://techysender.app/favicon.svg',
+    url: 'https://techysender.vercel.app',
+    logo: 'https://techysender.vercel.app/favicon.svg',
     sameAs: [],
     description: 'Encrypted browser-based peer-to-peer file sharing platform.',
   };
@@ -15,10 +15,10 @@ export function getWebSiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'TECHYSENDER',
-    url: 'https://techysender.app',
+    url: 'https://techysender.vercel.app',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://techysender.app/receive?id={search_term_string}',
+      target: 'https://techysender.vercel.app/receive?id={search_term_string}',
       'query-input': 'required name=search_term_string',
     },
   };
@@ -29,7 +29,7 @@ export function getWebApplicationSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'TECHYSENDER',
-    url: 'https://techysender.app',
+    url: 'https://techysender.vercel.app',
     applicationCategory: 'SecurityApplication',
     operatingSystem: 'All',
     browserRequirements: 'Requires WebRTC and Web Crypto API support',
@@ -109,6 +109,6 @@ export function getPrivacyPageSchema() {
     '@type': 'WebPage',
     name: 'Privacy Policy — TECHYSENDER',
     description: 'Learn how TECHYSENDER respects your privacy with zero-knowledge, zero-storage peer-to-peer architecture.',
-    url: 'https://techysender.app/privacy',
+    url: 'https://techysender.vercel.app/privacy',
   };
 }
