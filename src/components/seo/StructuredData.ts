@@ -2,9 +2,9 @@ export function getOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'BYTEPORT',
-    url: 'https://byteport.app',
-    logo: 'https://byteport.app/favicon.svg',
+    name: 'TECHYSENDER',
+    url: 'https://techysender.app',
+    logo: 'https://techysender.app/favicon.svg',
     sameAs: [],
     description: 'Encrypted browser-based peer-to-peer file sharing platform.',
   };
@@ -14,11 +14,11 @@ export function getWebSiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'BYTEPORT',
-    url: 'https://byteport.app',
+    name: 'TECHYSENDER',
+    url: 'https://techysender.app',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://byteport.app/receive?id={search_term_string}',
+      target: 'https://techysender.app/receive?id={search_term_string}',
       'query-input': 'required name=search_term_string',
     },
   };
@@ -28,8 +28,8 @@ export function getWebApplicationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'BYTEPORT',
-    url: 'https://byteport.app',
+    name: 'TECHYSENDER',
+    url: 'https://techysender.app',
     applicationCategory: 'SecurityApplication',
     operatingSystem: 'All',
     browserRequirements: 'Requires WebRTC and Web Crypto API support',
@@ -41,7 +41,8 @@ export function getWebApplicationSchema() {
     featureList: [
       'End-to-End Encryption (AES-GCM)',
       'Peer-to-Peer Browser Transfers',
-      'No File Size Limits',
+      'QR Code Sharing',
+      'Secure Short Links',
       'No Account Required',
       'Zero Cloud Storage',
     ],
@@ -68,7 +69,7 @@ export function getFAQSchema() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'Is BYTEPORT completely private?',
+        name: 'Is TECHYSENDER completely private?',
         acceptedAnswer: {
           '@type': 'Answer',
           text: 'Yes. Your files are encrypted in your browser before transmission using AES-GCM and sent directly peer-to-peer via WebRTC. Unencrypted data never touches any server.',
@@ -106,8 +107,8 @@ export function getPrivacyPageSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'Privacy Policy — BYTEPORT',
-    description: 'Learn how BYTEPORT respects your privacy with zero-knowledge, zero-storage peer-to-peer architecture.',
-    url: 'https://byteport.app/privacy',
+    name: 'Privacy Policy — TECHYSENDER',
+    description: 'Learn how TECHYSENDER respects your privacy with zero-knowledge, zero-storage peer-to-peer architecture.',
+    url: 'https://techysender.app/privacy',
   };
 }

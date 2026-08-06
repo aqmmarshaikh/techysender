@@ -85,16 +85,16 @@ export function SendPage() {
   }
 
   const breadcrumbs = getBreadcrumbSchema([
-    { name: 'Home', url: 'https://byteport.app/' },
-    { name: 'Send Files', url: 'https://byteport.app/send' },
+    { name: 'Home', url: 'https://techysender.app/' },
+    { name: 'Send Files', url: 'https://techysender.app/send' },
   ]);
 
   return (
     <div className="page-content">
       <SEO
-        title="Send Files Securely — BYTEPORT Encrypted Transfer"
-        description="Select files to generate a secure end-to-end encrypted direct peer-to-peer transfer link. No accounts, no size limits."
-        canonical="https://byteport.app/send"
+        title="Send Files Securely — TECHYSENDER Encrypted Transfer"
+        description="Select files to generate a secure end-to-end encrypted direct peer-to-peer transfer link with QR codes and short links."
+        canonical="https://techysender.app/send"
         structuredData={breadcrumbs}
       />
       <div className="container send-page">

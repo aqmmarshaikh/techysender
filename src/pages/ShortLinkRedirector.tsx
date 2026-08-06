@@ -49,7 +49,7 @@ export function ShortLinkRedirector() {
   if (error) {
     return (
       <div className="page-content">
-        <SEO title="Invalid Transfer Link — BYTEPORT" noindex />
+        <SEO title="Invalid Transfer Link — TECHYSENDER" noindex />
         <div className="container" style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
           <div style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
             <GlassCard variant="default" padding="xl">
@@ -68,7 +68,7 @@ export function ShortLinkRedirector() {
 
   return (
     <div className="page-content">
-      <SEO title="Resolving Transfer Link — BYTEPORT" noindex />
+      <SEO title="Resolving Transfer Link — TECHYSENDER" noindex />
       <div className="container" style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
         <div style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
           <GlassCard variant="purple" padding="xl">

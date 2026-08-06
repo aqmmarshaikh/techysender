@@ -8,17 +8,17 @@ export function PrivacyPage() {
   const schemas = [
     getPrivacyPageSchema(),
     getBreadcrumbSchema([
-      { name: 'Home', url: 'https://byteport.app/' },
-      { name: 'Privacy Policy', url: 'https://byteport.app/privacy' },
+      { name: 'Home', url: 'https://techysender.app/' },
+      { name: 'Privacy Policy', url: 'https://techysender.app/privacy' },
     ]),
   ];
 
   return (
     <article className="page-content">
       <SEO
-        title="Privacy Policy — BYTEPORT Zero-Knowledge Encrypted Sharing"
-        description="BYTEPORT is built on a zero-knowledge architecture. Learn how your files are protected with AES-GCM encryption and direct WebRTC peer-to-peer transfers."
-        canonical="https://byteport.app/privacy"
+        title="Privacy Policy — TECHYSENDER Zero-Knowledge Encrypted Sharing"
+        description="TECHYSENDER is built on a zero-knowledge architecture. Learn how your files are protected with AES-GCM encryption and direct WebRTC peer-to-peer transfers."
+        canonical="https://techysender.app/privacy"
         structuredData={schemas}
       />
       <div className="container privacy-page">

@@ -2,35 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://byteport.app/</loc>
+    <loc>https://techysender.app/</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://byteport.app/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://byteport.app/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://techysender.app/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://techysender.app/" />
   </url>
   <url>
-    <loc>https://byteport.app/send</loc>
+    <loc>https://techysender.app/send</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://byteport.app/send" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://byteport.app/send" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://techysender.app/send" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://techysender.app/send" />
   </url>
   <url>
-    <loc>https://byteport.app/receive</loc>
+    <loc>https://techysender.app/receive</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://byteport.app/receive" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://byteport.app/receive" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://techysender.app/receive" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://techysender.app/receive" />
   </url>
   <url>
-    <loc>https://byteport.app/privacy</loc>
+    <loc>https://techysender.app/privacy</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://byteport.app/privacy" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://byteport.app/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://techysender.app/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://techysender.app/privacy" />
   </url>
 </urlset>

@@ -1,7 +1,7 @@
 {
-  "name": "BYTEPORT — Encrypted Browser-Based File Sharing",
-  "short_name": "BYTEPORT",
-  "description": "Send files securely with end-to-end encryption directly from browser to browser. No size limits, no accounts.",
+  "name": "TECHYSENDER — Secure P2P File Sharing",
+  "short_name": "TECHYSENDER",
+  "description": "Send files instantly with end-to-end encryption, WebRTC technology, QR sharing, and secure short links.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#09090B",

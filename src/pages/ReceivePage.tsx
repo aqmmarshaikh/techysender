@@ -80,8 +80,8 @@ export function ReceivePage() {
   };
 
   const breadcrumbs = getBreadcrumbSchema([
-    { name: 'Home', url: 'https://byteport.app/' },
-    { name: 'Receive Files', url: 'https://byteport.app/receive' },
+    { name: 'Home', url: 'https://techysender.app/' },
+    { name: 'Receive Files', url: 'https://techysender.app/receive' },
   ]);
 
   // ── Missing / Invalid Link State (Join Transfer UI) ──
@@ -89,9 +89,9 @@ export function ReceivePage() {
     return (
       <div className="page-content">
         <SEO
-          title="Receive & Download Files — BYTEPORT Encrypted Transfer"
+          title="Receive & Download Files — TECHYSENDER Encrypted Transfer"
           description="Connect to an active peer-to-peer file transfer session securely using your transfer link or key."
-          canonical="https://byteport.app/receive"
+          canonical="https://techysender.app/receive"
           structuredData={breadcrumbs}
         />
         <div className="container receive-page">
@@ -143,7 +143,7 @@ export function ReceivePage() {
   if (connectionState === 'failed') {
     return (
       <div className="page-content">
-        <SEO title="Transfer Failed — BYTEPORT" noindex />
+        <SEO title="Transfer Failed — TECHYSENDER" noindex />
         <div className="container receive-page">
           <div className="receive-header">
             <h1 className="receive-title text-danger">Connection <span className="text-gradient">Failed</span></h1>
@@ -166,7 +166,7 @@ export function ReceivePage() {
   if (connectionState === 'connecting' || connectionState === 'idle') {
     return (
       <div className="page-content">
-        <SEO title="Connecting to Transfer — BYTEPORT" noindex />
+        <SEO title="Connecting to Transfer — TECHYSENDER" noindex />
         <div className="container receive-page">
           <div className="receive-header">
             <h1 className="receive-title">Connecting to <span className="text-gradient">Sender</span></h1>
@@ -193,7 +193,7 @@ export function ReceivePage() {
   if (connectionState === 'connected') {
     return (
       <div className="page-content">
-        <SEO title="Ready to Receive — BYTEPORT Transfer" noindex />
+        <SEO title="Ready to Receive — TECHYSENDER Transfer" noindex />
         <div className="container receive-page">
           <div className="receive-header">
             <h1 className="receive-title">Ready to <span className="text-gradient">Receive</span></h1>
@@ -224,7 +224,7 @@ export function ReceivePage() {
 
   return (
     <div className="page-content">
-      <SEO title="Receiving Files — BYTEPORT Encrypted Transfer" noindex />
+      <SEO title="Receiving Files — TECHYSENDER Encrypted Transfer" noindex />
       <div className="container receive-page">
         <div className="receive-header">
           <h1 className="receive-title">

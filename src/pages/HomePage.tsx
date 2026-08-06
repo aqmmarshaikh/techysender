@@ -24,9 +24,9 @@ export function HomePage() {
   return (
     <>
       <SEO
-        title="BYTEPORT — Encrypted Browser-Based P2P File Sharing"
-        description="Send large files securely with end-to-end AES-GCM encryption directly between browsers. Zero accounts, zero cloud storage, unlimited file sizes."
-        canonical="https://byteport.app/"
+        title="TECHYSENDER – Secure P2P File Sharing"
+        description="Send files instantly with end-to-end encryption, WebRTC technology, QR sharing, and secure short links. No sign-up. No storage. Just private file transfers."
+        canonical="https://techysender.app/"
         structuredData={schemas}
       />
       <ParticleBackground />

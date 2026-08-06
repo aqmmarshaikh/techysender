@@ -11,11 +11,11 @@ export interface SEOProps {
   structuredData?: object | object[];
 }
 
-const DEFAULT_TITLE = 'BYTEPORT — Encrypted Browser-Based File Sharing';
+const DEFAULT_TITLE = 'TECHYSENDER – Secure P2P File Sharing';
 const DEFAULT_DESCRIPTION =
-  'Send files securely with end-to-end encryption directly from browser to browser. No account required, no file size limits, zero server storage.';
-const DEFAULT_CANONICAL = 'https://byteport.app/';
-const DEFAULT_OG_IMAGE = 'https://byteport.app/og-image.png';
+  'Send files instantly with end-to-end encryption, WebRTC technology, QR sharing, and secure short links. No sign-up. No storage. Just private file transfers.';
+const DEFAULT_CANONICAL = 'https://techysender.app/';
+const DEFAULT_OG_IMAGE = 'https://techysender.app/og-image.png';
 
 export function SEO({
   title = DEFAULT_TITLE,
