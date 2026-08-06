@@ -850,59 +850,39 @@
     font-size: 11px;
     letter-spacing: 3px;
     color: var(--cyan);
-
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 16px;
-    border: 1px solid var(--line);
-    border-radius: 30px;
-    background: rgba(0, 240, 255, .04);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--cyan);
     margin-bottom: 30px
 
 }
 
 .developerPageContainer .pulse-dot {
+
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: var(--cyan);
     box-shadow: 0 0 12px var(--cyan);
-    animation: pulse 1.4s infinite;
-}
+    animation: pulse 1.4s infinite
 
-@keyframes lineReveal {
-    0% {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .developerPageContainer .hero-title {
+
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
     font-size: clamp(46px, 8.5vw, 118px);
     line-height: .9;
     letter-spacing: 1px;
-    margin-bottom: 30px;
-    color: var(--text, #e6f0ff);
-    position: relative;
-    z-index: 5;
+    margin-bottom: 30px
+
 }
 
 .developerPageContainer .hero-title .line {
+
     display: block;
     opacity: 1;
     transform: translateY(0);
-    animation: lineReveal .9s cubic-bezier(.2, .8, .2, 1) both;
+    animation: lineReveal .9s cubic-bezier(.2, .8, .2, 1) both
+
 }
 
 .developerPageContainer .hero-title .line:nth-child(1) {
@@ -929,7 +909,14 @@
 
 }
 
+@keyframes lineReveal {
+0% { opacity: 0; transform: translateY(40px); }
+100% { opacity: 1; transform: translateY(0); }
+}
+
 .developerPageContainer .hero-rotator {
+
+    display: flex;
     align-items: center;
     gap: 14px;
     font-family: 'JetBrains Mono', monospace;
