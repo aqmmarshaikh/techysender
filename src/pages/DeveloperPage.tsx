@@ -373,6 +373,24 @@ export function DeveloperPage() {
         reveal.observe(el);
       });
 
+    // 16. Konami / Founder Mode Easter Egg
+    const seq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown'];
+    let buf: string[] = [];
+    const handleKonami = (e: KeyboardEvent) => {
+      buf.push(e.key);
+      if (buf.length > seq.length) buf.shift();
+      if (seq.every((k, i) => k === buf[i])) {
+        const rootElem = document.querySelector('.developerPageContainer') as HTMLElement | null;
+        if (rootElem) {
+          rootElem.style.filter = 'hue-rotate(180deg)';
+          setTimeout(() => {
+            if (rootElem) rootElem.style.filter = '';
+          }, 1400);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKonami);
+
     // Cleanup function on unmount
     return () => {
       isMounted = false;
@@ -384,6 +402,7 @@ export function DeveloperPage() {
       window.removeEventListener('mousemove', handleMouseGlow);
       window.removeEventListener('mousemove', handleOrbMouse);
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('keydown', handleKonami);
     };
   }, []);
 
