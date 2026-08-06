@@ -49,14 +49,20 @@ export function FAQ() {
             <div key={i} className={`faq-item ${openIndex === i ? 'faq-item-open' : ''}`}>
               <button
                 className="faq-question"
+                id={`faq-question-${i}`}
                 onClick={() => toggle(i)}
                 aria-expanded={openIndex === i}
                 aria-controls={`faq-answer-${i}`}
               >
                 <span>{faq.question}</span>
-                <ChevronDown size={18} className="faq-chevron" />
+                <ChevronDown size={18} className="faq-chevron" aria-hidden="true" />
               </button>
-              <div className="faq-answer" id={`faq-answer-${i}`} role="region">
+              <div
+                className="faq-answer"
+                id={`faq-answer-${i}`}
+                role="region"
+                aria-labelledby={`faq-question-${i}`}
+              >
                 <p>{faq.answer}</p>
               </div>
             </div>

@@ -1,0 +1,13 @@
+# Robots.txt for BYTEPORT — https://byteport.app/
+
+User-agent: *
+Allow: /
+Allow: /send
+Allow: /receive
+Allow: /privacy
+
+# Disallow private peer transfer short links from being indexed
+Disallow: /s/
+
+# Sitemap location
+Sitemap: https://byteport.app/sitemap.xml

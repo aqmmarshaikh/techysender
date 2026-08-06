@@ -4,6 +4,7 @@ import { Loader2, AlertCircle } from 'lucide-react';
 import { GlassCard } from '../components/ui/GlassCard';
 import { Button } from '../components/ui/Button';
 import { getTransferDetailsFromShortCode } from '../lib/webrtc/shortLinks';
+import { SEO } from '../components/seo/SEO';
 
 export function ShortLinkRedirector() {
   const { shortCode } = useParams<{ shortCode: string }>();
@@ -48,6 +49,7 @@ export function ShortLinkRedirector() {
   if (error) {
     return (
       <div className="page-content">
+        <SEO title="Invalid Transfer Link — BYTEPORT" noindex />
         <div className="container" style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
           <div style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
             <GlassCard variant="default" padding="xl">
@@ -66,6 +68,7 @@ export function ShortLinkRedirector() {
 
   return (
     <div className="page-content">
+      <SEO title="Resolving Transfer Link — BYTEPORT" noindex />
       <div className="container" style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
         <div style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
           <GlassCard variant="purple" padding="xl">

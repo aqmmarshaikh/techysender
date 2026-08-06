@@ -1,0 +1,19 @@
+{
+  "name": "BYTEPORT — Encrypted Browser-Based File Sharing",
+  "short_name": "BYTEPORT",
+  "description": "Send files securely with end-to-end encryption directly from browser to browser. No size limits, no accounts.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090B",
+  "theme_color": "#09090B",
+  "orientation": "any",
+  "categories": ["utilities", "security"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

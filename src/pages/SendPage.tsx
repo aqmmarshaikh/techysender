@@ -9,6 +9,8 @@ import { FileList } from '../components/transfer/FileList';
 import { LinkDisplay } from '../components/transfer/LinkDisplay';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { formatFileSize, formatSpeed } from '../types/file';
+import { SEO } from '../components/seo/SEO';
+import { getBreadcrumbSchema } from '../components/seo/StructuredData';
 import './SendPage.css';
 
 export function SendPage() {
@@ -82,8 +84,19 @@ export function SendPage() {
     );
   }
 
+  const breadcrumbs = getBreadcrumbSchema([
+    { name: 'Home', url: 'https://byteport.app/' },
+    { name: 'Send Files', url: 'https://byteport.app/send' },
+  ]);
+
   return (
     <div className="page-content">
+      <SEO
+        title="Send Files Securely — BYTEPORT Encrypted Transfer"
+        description="Select files to generate a secure end-to-end encrypted direct peer-to-peer transfer link. No accounts, no size limits."
+        canonical="https://byteport.app/send"
+        structuredData={breadcrumbs}
+      />
       <div className="container send-page">
         <div className="send-header">
           <h1 className="send-title">
