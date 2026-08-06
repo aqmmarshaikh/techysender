@@ -9,14 +9,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBvLb_a7AIFQXqicg49tz7UaIGDYDh0MpQ",
-  authDomain: "sender-f45b4.firebaseapp.com",
-  databaseURL: "https://sender-f45b4-default-rtdb.firebaseio.com",
-  projectId: "sender-f45b4",
-  storageBucket: "sender-f45b4.firebasestorage.app",
-  messagingSenderId: "505332976725",
-  appId: "1:505332976725:web:3b3c7d68e7cabc5e2dd8dc",
-  measurementId: "G-C1BXG5NYYJ",
+  apiKey: "AIzaSyA8rUDROe7fWfb0avCt1ia5opsc-FwTtiM",
+  authDomain: "sender2-85c30.firebaseapp.com",
+  projectId: "sender2-85c30",
+  storageBucket: "sender2-85c30.firebasestorage.app",
+  messagingSenderId: "156828156579",
+  appId: "1:156828156579:web:ae8ae66eb6f82792393516",
+  measurementId: "G-FWVKB8DP2W",
 };
 
 // Initialize Firebase
