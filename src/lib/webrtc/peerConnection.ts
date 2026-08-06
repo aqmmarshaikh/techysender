@@ -122,12 +122,11 @@ export class WebRTCManager {
         this.transferState.startTime = Date.now();
         this.transferState.lastUpdateTime = Date.now();
 
-        // ── FIRESTORE QUOTA OPTIMIZATION ──
-        // WebRTC P2P connection established! Negotiation is complete.
-        // Unsubscribe realtime listeners to stop continuous read quota consumption.
+        // ── FIRESTORE READ OPTIMIZATION ──
+        // Unsubscribe active realtime listeners while connected to save reads,
+        // but preserve signaling document in Firestore until transfer completion/disconnect
+        // to support ICE restarts and mobile reconnection.
         this.unsubscribeSignalingListeners();
-        // Purge temporary signaling documents from Firestore.
-        deleteSignalingSession(this.sessionId).catch(console.error);
       } else if (this.pc.connectionState === 'disconnected') {
         console.warn(`[WebRTC] Connection lost temporarily. Waiting 5 seconds for recovery...`);
         if (!this.disconnectTimeout) {

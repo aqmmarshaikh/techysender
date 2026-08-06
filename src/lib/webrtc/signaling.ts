@@ -109,11 +109,18 @@ export async function updateSession(sessionId: string, data: Partial<SignalingSe
   await updateDoc(sessionRef, data);
 }
 
+const sentCandidates = new Set<string>();
+
 export async function addIceCandidate(
   sessionId: string,
   type: 'caller' | 'callee',
   candidate: RTCIceCandidateInit
 ) {
+  if (!candidate || !candidate.candidate) return;
+  const key = `${sessionId}:${type}:${candidate.candidate}`;
+  if (sentCandidates.has(key)) return;
+  sentCandidates.add(key);
+
   const collectionName = type === 'caller' ? 'callerCandidates' : 'calleeCandidates';
   const candidatesRef = collection(db, 'signaling', sessionId, collectionName);
   await addDoc(candidatesRef, candidate);

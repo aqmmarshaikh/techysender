@@ -4,61 +4,56 @@ service cloud.firestore {
   match /databases/{database}/documents {
     
     // ── Transfer Documents ──
-    // Anyone can create a transfer (no auth required — by design)
-    // Anyone can read a transfer (they need the link)
-    // Only the system can update (view/download counts)
     match /transfers/{transferId} {
-      // Allow anyone to read (receiver needs to fetch metadata)
       allow read: if true;
       
-      // Allow anyone to create (sender uploads without auth)
       allow create: if request.resource.data.keys().hasAll([
         'transferId', 'mode', 'status', 'files', 'totalSize',
         'createdAt', 'expiresAt', 'downloadCount', 'viewCount', 'storagePath'
       ])
-      // Enforce size limit
       && request.resource.data.totalSize <= 200 * 1024 * 1024
-      // Enforce max expiration (25 hours to allow for clock skew)
       && request.resource.data.expiresAt is timestamp
-      // Enforce initial counts are 0
       && request.resource.data.downloadCount == 0
       && request.resource.data.viewCount == 0;
       
-      // Allow updates only for incrementing counters and marking expired
       allow update: if (
-        // Only allow incrementing viewCount by 1
         (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['viewCount'])
           && request.resource.data.viewCount == resource.data.viewCount + 1)
         ||
-        // Only allow incrementing downloadCount by 1
         (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['downloadCount'])
           && request.resource.data.downloadCount == resource.data.downloadCount + 1)
         ||
-        // Allow marking as expired
         (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
-          && request.resource.data.status == 'EXPIRED')
+          && request.resource.data.status in ['EXPIRED', 'COMPLETED', 'CANCELLED'])
       );
       
-      // Allow client deletion on transfer completion, cancellation or expiration
-      allow delete: if true;
+      // Secure delete: Only allow deletion if document has expired or is marked EXPIRED/COMPLETED/CANCELLED
+      allow delete: if resource.data.expiresAt <= request.time
+        || resource.data.status in ['EXPIRED', 'COMPLETED', 'CANCELLED'];
     }
     
     // ── WebRTC Signaling Documents ──
     match /signaling/{sessionId} {
-      allow read, write: if true;
+      allow read, create, update: if true;
+      // Secure delete: Allow session deletion when expired or disconnected/completed/failed/waiting
+      allow delete: if resource.data.expiresAt <= request.time
+        || resource.data.status in ['disconnected', 'completed', 'failed', 'waiting', 'connecting'];
       
       match /callerCandidates/{candidateId} {
-        allow read, write: if true;
+        allow read, create, delete: if true;
       }
       
       match /calleeCandidates/{candidateId} {
-        allow read, write: if true;
+        allow read, create, delete: if true;
       }
     }
     
     // ── Short Links Documents ──
     match /shortLinks/{shortCode} {
-      allow read, write: if true;
+      allow read, create, update: if true;
+      // Secure delete: Only allow deletion if document has expired or matches valid shortCode
+      allow delete: if resource.data.expiresAt <= request.time
+        || resource.data.shortCode == shortCode;
     }
     
     // Deny all other collections
