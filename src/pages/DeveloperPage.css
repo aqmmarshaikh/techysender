@@ -872,16 +872,28 @@
     line-height: .9;
     letter-spacing: 1px;
     margin-bottom: 30px;
-    color: var(--text, #e6f0ff);
+    color: #e6f0ff !important;
     position: relative;
     z-index: 5;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .developerPageContainer .hero-title .line {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-    animation: lineReveal .9s cubic-bezier(.2, .8, .2, 1);
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: #e6f0ff !important;
+    transform: none !important;
+    animation: lineReveal .9s cubic-bezier(.2, .8, .2, 1) !important;
+}
+
+.developerPageContainer .hero-title .line.gradient {
+    background: linear-gradient(135deg, #00f0ff 0%, #7c3aed 50%, #ff2ea6 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
 }
 
 .developerPageContainer .hero-title .line:nth-child(1) {
