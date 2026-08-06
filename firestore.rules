@@ -39,8 +39,8 @@ service cloud.firestore {
           && request.resource.data.status == 'EXPIRED')
       );
       
-      // No deletes from client (cleanup via Cloud Functions)
-      allow delete: if false;
+      // Allow client deletion on transfer completion, cancellation or expiration
+      allow delete: if true;
     }
     
     // ── WebRTC Signaling Documents ──

@@ -9,7 +9,8 @@ import {
   updateSession,
   addIceCandidate,
   subscribeToIceCandidates,
-  subscribeToSession
+  subscribeToSession,
+  deleteSignalingSession
 } from './signaling';
 import { encryptChunk, decryptChunk } from '../encryption';
 
@@ -120,6 +121,13 @@ export class WebRTCManager {
         // Reset transfer stats on connect
         this.transferState.startTime = Date.now();
         this.transferState.lastUpdateTime = Date.now();
+
+        // ── FIRESTORE QUOTA OPTIMIZATION ──
+        // WebRTC P2P connection established! Negotiation is complete.
+        // Unsubscribe realtime listeners to stop continuous read quota consumption.
+        this.unsubscribeSignalingListeners();
+        // Purge temporary signaling documents from Firestore.
+        deleteSignalingSession(this.sessionId).catch(console.error);
       } else if (this.pc.connectionState === 'disconnected') {
         console.warn(`[WebRTC] Connection lost temporarily. Waiting 5 seconds for recovery...`);
         if (!this.disconnectTimeout) {
@@ -479,6 +487,14 @@ export class WebRTCManager {
 
   // ── Cleanup ──
 
+  public unsubscribeSignalingListeners() {
+    if (this.unsubscribes.length > 0) {
+      console.log(`[WebRTC] Unsubscribing ${this.unsubscribes.length} active Firestore signaling listeners.`);
+      this.unsubscribes.forEach(u => u());
+      this.unsubscribes = [];
+    }
+  }
+
   public disconnect() {
     if (this.isDisconnecting) {
       console.log(`[WebRTC] Disconnect called, but already disconnecting. Ignoring duplicate call.`);
@@ -493,8 +509,10 @@ export class WebRTCManager {
     }
 
     // Unsubscribe from signaling
-    this.unsubscribes.forEach(u => u());
-    this.unsubscribes = [];
+    this.unsubscribeSignalingListeners();
+
+    // Purge temporary signaling document from Firestore
+    deleteSignalingSession(this.sessionId).catch(console.error);
 
     // Gracefully close DataChannel
     if (this.dataChannel) {

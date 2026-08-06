@@ -9,7 +9,7 @@ import { WebRTCManager, type WebRTCProgress } from '../lib/webrtc/peerConnection
 import { createSignalingSession, deleteSignalingSession } from '../lib/webrtc/signaling';
 import { generateTransferId, buildReceiveUrl, buildShortUrl } from '../lib/linkGenerator';
 import { generateKey, exportKey, importKey } from '../lib/encryption';
-import { createShortLink } from '../lib/webrtc/shortLinks';
+import { createShortLink, deleteShortLink } from '../lib/webrtc/shortLinks';
 export type WebRTCConnectionState =
   | 'idle'
   | 'waiting' // Receiver waiting for sender
@@ -299,9 +299,15 @@ export const useWebRTCStore = create<WebRTCState>((set, get) => ({
       console.log(`[WebRTC Store] Lifecycle: PeerConnections created=${peerConnectionCreateCount}, destroyed=${peerConnectionDestroyCount}, DataChannels created=${dataChannelCreateCount}, closed=${dataChannelCloseCount}`);
     }
     
-    const { sessionId, role } = get();
-    if (sessionId && role === 'sender') {
+    const { sessionId, shortUrl } = get();
+    if (sessionId) {
       deleteSignalingSession(sessionId).catch(console.error);
+    }
+    if (shortUrl) {
+      const match = shortUrl.match(/\/s\/([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) {
+        deleteShortLink(match[1]).catch(console.error);
+      }
     }
 
     set({ connectionState: 'disconnected' });

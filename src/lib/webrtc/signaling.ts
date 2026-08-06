@@ -1,5 +1,5 @@
 /**
- * BYTEPORT — WebRTC Signaling Service
+ * BYTEPORT — WebRTC Signaling Service (Optimized for Zero Firestore Waste)
  *
  * Uses Firestore to exchange SDP offers, answers, and ICE candidates
  * to establish a direct WebRTC peer-to-peer connection.
@@ -10,6 +10,9 @@ import {
   setDoc,
   getDoc,
   updateDoc,
+  deleteDoc,
+  getDocs,
+  writeBatch,
   onSnapshot,
   collection,
   addDoc,
@@ -24,26 +27,23 @@ export interface SignalingSession {
   offer?: RTCSessionDescriptionInit;
   answer?: RTCSessionDescriptionInit;
   createdAt: Timestamp;
+  expiresAt: Timestamp;
 }
 
 /**
- * Receiver creates a new signaling session.
- * Receiver = "Callee" (waits for offer)
- * Actually, usually the one creating the room is the Caller, but in our flow:
- * Receiver generates link -> creates empty room -> waits.
- * Sender opens link -> creates RTCPeerConnection -> writes Offer -> Caller.
- * Receiver sees Offer -> writes Answer -> Callee.
+ * Receiver creates a new signaling session with TTL expiration.
  */
 export async function createSignalingSession(sessionId: string): Promise<void> {
-  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
-  console.log(`[DEBUG] [Signaling] Creating session document...`);
+  console.log(`[Signaling] Creating session document: ${sessionId}`);
   const sessionRef = doc(db, 'signaling', sessionId);
+  const expiresAt = Timestamp.fromMillis(Date.now() + 24 * 60 * 60 * 1000);
+  
   await setDoc(sessionRef, {
     sessionId,
     status: 'waiting',
     createdAt: serverTimestamp(),
+    expiresAt,
   });
-  console.log(`[DEBUG] [Signaling] Session document created successfully.`);
 }
 
 /**
@@ -55,38 +55,58 @@ export async function checkSignalingSession(sessionId: string): Promise<boolean>
   return snap.exists();
 }
 
+/**
+ * Physically deletes the signaling document and all ICE candidate subcollections
+ * to eliminate orphan documents and prevent Firestore quota waste.
+ */
 export async function deleteSignalingSession(sessionId: string): Promise<void> {
-  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
-  console.log(`[DEBUG] [Signaling] Updating session status to disconnected...`);
-  const sessionRef = doc(db, 'signaling', sessionId);
-  await updateDoc(sessionRef, { status: 'disconnected' });
-  console.log(`[DEBUG] [Signaling] Session status updated to disconnected.`);
+  if (!sessionId) return;
+  console.log(`[Signaling] Physically purging signaling session: ${sessionId}`);
+  try {
+    const sessionRef = doc(db, 'signaling', sessionId);
+
+    // Delete caller candidates subcollection
+    const callerCol = collection(db, 'signaling', sessionId, 'callerCandidates');
+    const callerSnap = await getDocs(callerCol);
+    if (!callerSnap.empty) {
+      const batch = writeBatch(db);
+      callerSnap.forEach((d) => batch.delete(d.ref));
+      await batch.commit();
+    }
+
+    // Delete callee candidates subcollection
+    const calleeCol = collection(db, 'signaling', sessionId, 'calleeCandidates');
+    const calleeSnap = await getDocs(calleeCol);
+    if (!calleeSnap.empty) {
+      const batch = writeBatch(db);
+      calleeSnap.forEach((d) => batch.delete(d.ref));
+      await batch.commit();
+    }
+
+    // Delete main session document
+    await deleteDoc(sessionRef);
+    console.log(`[Signaling] Successfully purged session ${sessionId}`);
+  } catch (e) {
+    console.error(`[Signaling] Error purging session ${sessionId}:`, e);
+  }
 }
 
 export function subscribeToSession(
   sessionId: string,
   onUpdate: (data: Partial<SignalingSession>) => void
 ) {
-  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
-  console.log(`[DEBUG] [Signaling] Subscribing to session updates...`);
   const sessionRef = doc(db, 'signaling', sessionId);
   return onSnapshot(sessionRef, (snap) => {
     if (snap.exists()) {
       const data = snap.data() as Partial<SignalingSession>;
-      console.log(`[DEBUG] [Signaling] Session snapshot received:\n`, JSON.stringify(data, null, 2));
       onUpdate(data);
-    } else {
-      console.log(`[DEBUG] [Signaling] Session snapshot received, but document does not exist.`);
     }
   });
 }
 
 export async function updateSession(sessionId: string, data: Partial<SignalingSession>) {
-  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
-  console.log(`[DEBUG] [Signaling] Updating session document with data:\n`, JSON.stringify(data, null, 2));
   const sessionRef = doc(db, 'signaling', sessionId);
   await updateDoc(sessionRef, data);
-  console.log(`[DEBUG] [Signaling] Session document updated successfully.`);
 }
 
 export async function addIceCandidate(
@@ -94,12 +114,9 @@ export async function addIceCandidate(
   type: 'caller' | 'callee',
   candidate: RTCIceCandidateInit
 ) {
-  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
-  console.log(`[DEBUG] [Signaling] Adding ICE candidate for ${type}...`);
   const collectionName = type === 'caller' ? 'callerCandidates' : 'calleeCandidates';
   const candidatesRef = collection(db, 'signaling', sessionId, collectionName);
   await addDoc(candidatesRef, candidate);
-  console.log(`[DEBUG] [Signaling] ICE candidate for ${type} added successfully.`);
 }
 
 export function subscribeToIceCandidates(
@@ -107,15 +124,12 @@ export function subscribeToIceCandidates(
   type: 'caller' | 'callee',
   onCandidate: (candidate: RTCIceCandidateInit) => void
 ) {
-  console.log(`[DEBUG] [Signaling] Session ID: ${sessionId}`);
-  console.log(`[DEBUG] [Signaling] Subscribing to ICE candidates for ${type}...`);
   const collectionName = type === 'caller' ? 'callerCandidates' : 'calleeCandidates';
   const candidatesRef = collection(db, 'signaling', sessionId, collectionName);
   return onSnapshot(candidatesRef, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         const data = change.doc.data();
-        console.log(`[DEBUG] [Signaling] New ICE candidate snapshot received from ${type}:\n`, JSON.stringify(data, null, 2));
         onCandidate(data as RTCIceCandidateInit);
       }
     });
