@@ -5,9 +5,9 @@
 .link-display {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  padding: var(--space-8);
-  border-radius: var(--radius-2xl);
+  gap: clamp(0.5rem, 1.2vh, 0.875rem);
+  padding: clamp(0.875rem, 2vh, 1.5rem) clamp(0.875rem, 2.5vw, 1.75rem);
+  border-radius: var(--radius-xl);
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
   border: 1px solid rgba(16, 185, 129, 0.15);
@@ -21,13 +21,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   text-align: center;
 }
 
 .link-display-success-icon {
-  width: 72px;
-  height: 72px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: var(--color-success-dim);
   color: var(--color-success);
@@ -38,7 +38,7 @@
 }
 
 .link-display-title {
-  font-size: var(--text-3xl);
+  font-size: clamp(1.2rem, 2.2vh, 1.45rem);
   font-weight: var(--weight-bold);
   background: linear-gradient(135deg, var(--color-success), var(--color-accent-cyan));
   -webkit-background-clip: text;
@@ -47,7 +47,7 @@
 }
 
 .link-display-subtitle {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--color-text-secondary);
   font-family: var(--font-mono);
 }
@@ -57,7 +57,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  padding: 0.375rem 0.625rem;
   border-radius: var(--radius-lg);
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid var(--color-border);
@@ -71,9 +71,9 @@
 .link-display-url-input {
   flex: 1;
   min-width: 0;
-  padding: var(--space-2);
+  padding: var(--space-1);
   font-family: var(--font-mono);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--color-accent-cyan);
   background: none;
   border: none;
@@ -91,9 +91,9 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  font-size: var(--text-xs);
+  font-size: 0.75rem;
   color: var(--color-text-muted);
-  padding: var(--space-3);
+  padding: 0.375rem 0.625rem;
   border-radius: var(--radius-md);
   background: rgba(16, 185, 129, 0.05);
   border: 1px solid rgba(16, 185, 129, 0.1);
@@ -109,12 +109,12 @@
 
 /* ── New Transfer ── */
 .link-display-new {
-  padding-top: var(--space-2);
+  padding-top: 0;
 }
 
 @media (max-width: 640px) {
   .link-display {
-    padding: var(--space-6);
+    padding: var(--space-4);
   }
 
   .link-display-url-box {

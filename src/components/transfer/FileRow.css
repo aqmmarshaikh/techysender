@@ -5,9 +5,9 @@
 .file-row {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-lg);
+  gap: var(--space-1);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-md);
   background: rgba(17, 24, 39, 0.5);
   border: 1px solid var(--color-border);
   transition:
@@ -32,9 +32,9 @@
 
 /* ── Icon / Thumbnail ── */
 .file-row-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,7 +46,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
 }
 
 .file-icon-image {
@@ -85,7 +85,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .file-row-name {
@@ -98,7 +98,7 @@
 }
 
 .file-row-size {
-  font-size: var(--text-xs);
+  font-size: 0.75rem;
   color: var(--color-text-tertiary);
   font-family: var(--font-mono);
 }
@@ -111,8 +111,8 @@
 }
 
 .file-row-remove {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -132,8 +132,8 @@
   font-size: var(--text-sm);
   font-weight: var(--weight-bold);
   color: var(--color-success);
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,5 +141,5 @@
 
 /* ── Progress ── */
 .file-row-progress {
-  padding-left: calc(40px + var(--space-3));
+  padding-left: calc(32px + var(--space-3));
 }

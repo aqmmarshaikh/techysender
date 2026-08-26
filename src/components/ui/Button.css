@@ -46,15 +46,15 @@
 }
 
 .btn-lg {
-  height: 3rem;
-  padding: 0 var(--space-6);
+  height: clamp(2.5rem, 4vh, 2.875rem);
+  padding: 0 clamp(1rem, 2vw, 1.5rem);
   font-size: var(--text-base);
 }
 
 .btn-xl {
-  height: 3.5rem;
-  padding: 0 var(--space-8);
-  font-size: var(--text-lg);
+  height: clamp(2.75rem, 4.5vh, 3.25rem);
+  padding: 0 clamp(1.25rem, 3vw, 2rem);
+  font-size: var(--text-base);
 }
 
 .btn-full {

@@ -16,8 +16,8 @@ export function QRCodePanel({ url }: QRCodePanelProps) {
     if (!canvasRef.current || !url) return;
 
     QRCode.toCanvas(canvasRef.current, url, {
-      width: 200,
-      margin: 2,
+      width: 140,
+      margin: 1,
       color: {
         dark: '#00E5FF',
         light: '#00000000', // transparent background

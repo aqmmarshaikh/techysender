@@ -105,7 +105,7 @@ export function UploadZone() {
         <div className="upload-zone-icon-wrapper">
           <div className="upload-zone-icon-ring" />
           <div className="upload-zone-icon-inner">
-            <Upload size={32} />
+            <Upload size={26} />
           </div>
         </div>
 
@@ -115,16 +115,16 @@ export function UploadZone() {
         <div className="upload-zone-buttons" onClick={(e) => e.stopPropagation()}>
           <Button
             variant="primary"
-            size="lg"
-            icon={<Upload size={16} />}
+            size="md"
+            icon={<Upload size={15} />}
             onClick={() => fileInputRef.current?.click()}
           >
             Browse Files
           </Button>
           <Button
             variant="secondary"
-            size="lg"
-            icon={<FolderUp size={16} />}
+            size="md"
+            icon={<FolderUp size={15} />}
             onClick={() => folderInputRef.current?.click()}
           >
             Upload Folder
